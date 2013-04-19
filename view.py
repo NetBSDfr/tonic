@@ -45,5 +45,29 @@ class View(wx.Frame):
         menuBar.Append(helpmenu,"&Help")
         # Adding the MenuBar to the Frame content.
         self.SetMenuBar(menuBar)
-        self.Show(True)
 
+        # Toolbar
+        # Create toolbar
+        toolbar = self.CreateToolBar()
+        # Create icons
+        open_ico = wx.ArtProvider.GetBitmap(wx.ART_FILE_OPEN,
+                                            wx.ART_TOOLBAR, (16,16))
+        exit_ico = wx.ArtProvider.GetBitmap(wx.ART_QUIT,
+                                            wx.ART_TOOLBAR, (16,16))
+        undo_ico = wx.ArtProvider.GetBitmap(wx.ART_UNDO,
+                                            wx.ART_TOOLBAR, (16,16))
+
+        # setup toolbar
+        opentool = toolbar.AddSimpleTool(wx.ID_OPEN, open_ico, 
+                                         "Open", "")
+        exittool = toolbar.AddSimpleTool(wx.ID_EXIT, exit_ico, 
+                                         "Exit", "")
+        
+        toolbar.AddSeparator()
+        undotool = toolbar.AddSimpleTool(wx.ID_UNDO, undo_ico,
+                                         "Unmark All", "")
+        # show the toolbar to the frame 
+        toolbar.Realize()
+       
+        # Tadam 
+        self.Show(True)
