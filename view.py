@@ -1,6 +1,45 @@
 #!/usr/bin/env python
 
+import time
 import wx
+
+def timenow():
+    """ """
+    return time.time()
+
+class VSplitterPanel(wx.Panel):
+    """ Constructs a Vertical splitter window with left and right panels"""
+    def __init__(self, parent, color):
+        """ """
+        wx.Panel.__init__(self, parent)
+        self.SetBackgroundColour(color)
+        splitter = wx.SplitterWindow(self, style = wx.SP_3D| wx.SP_LIVE_UPDATE)
+        leftPanel = wx.Panel(splitter)
+        rightPanel = wx.Panel(splitter)
+        leftPanel.SetBackgroundColour('SEA GREEN')
+        rightPanel.SetBackgroundColour('STEEL BLUE')
+
+        splitter.SplitVertically(leftPanel, rightPanel) 
+        PanelSizer=wx.BoxSizer(wx.VERTICAL)
+        PanelSizer.Add(splitter, 1, wx.EXPAND | wx.ALL)
+        self.SetSizer(PanelSizer)
+
+class HSplitterPanel(wx.Panel):
+    """ Constructs a Horizontal splitter window with top and bottom panels"""
+    def __init__(self, parent, color):
+        """ """
+        wx.Panel.__init__(self, parent)
+        self.SetBackgroundColour(color)
+        splitter = wx.SplitterWindow(self, style = wx.SP_3D| wx.SP_LIVE_UPDATE)
+        TopPanel = wx.Panel(splitter)
+        BottomPanel = wx.Panel(splitter)
+        TopPanel.SetBackgroundColour('YELLOW GREEN')
+        BottomPanel.SetBackgroundColour('SLATE BLUE')
+
+        splitter.SplitHorizontally(TopPanel, BottomPanel) 
+        PanelSizer=wx.BoxSizer(wx.VERTICAL)
+        PanelSizer.Add(splitter, 1, wx.EXPAND | wx.ALL)
+        self.SetSizer(PanelSizer)
 
 class View(wx.Frame):
     """ HMI for Tonic """
@@ -8,8 +47,21 @@ class View(wx.Frame):
         wx.Frame.__init__(self, parent, title=title,
                               pos=(-1, -1), size=(600,400))
 
+        # define mainsplitter as child of frame and add H/V splitterPanel
+        # as children
+        mainsplitter = wx.SplitterWindow(self, 
+                                         style = wx.SP_3D| wx.SP_LIVE_UPDATE)
+        splitterpanel1 = HSplitterPanel(mainsplitter,'LIGHT BLUE') 
+        splitterpanel2 = VSplitterPanel(mainsplitter,'LIGHT BLUE') 
+        mainsplitter.SplitHorizontally(splitterpanel2, splitterpanel1)
+        MainSizer = wx.BoxSizer(wx.VERTICAL)
+        MainSizer.Add(mainsplitter, 1, wx.EXPAND | wx.ALL)
+        self.SetSizer(MainSizer)
+
         # Creating the statusbar in the bottom of the window
         self.CreateStatusBar()
+        t0 = timenow()
+        self.SetStatusText("Initialized in %6.4f secs" % (timenow()-t0))
 
         # Setting up the menu.
         # File menu
@@ -70,4 +122,5 @@ class View(wx.Frame):
         toolbar.Realize()
        
         # Tadam 
+        self.Refresh()
         self.Show(True)
