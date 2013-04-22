@@ -21,6 +21,7 @@ class Controller(object):
         # retrieve packages
         self.model.refresh()
         self.__populate_list_pkg()
+        self.__populate_list_cat()
 
     def OnAbout(self, event):
         """ blabla some stuff about tonic """
@@ -41,3 +42,11 @@ class Controller(object):
             pos = self.view.list_pkg.InsertStringItem(0, pkg["name"])
             self.view.list_pkg.SetStringItem(pos, 1, pkg["version"])
             self.view.list_pkg.SetStringItem(pos, 2, pkg["desc"])
+
+    def __populate_list_cat(self):
+        """ Populate the category list. """
+        cats = self.model.get_categories()
+        for cat in cats:
+            self.view.list_category.InsertStringItem(0, cat)
+        self.view.list_category.InsertStringItem(0, "--")
+        self.view.list_category.InsertStringItem(0, "all")
