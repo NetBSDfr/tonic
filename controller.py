@@ -2,21 +2,24 @@
 
 import wx
 from view import View
+from model import Model
 
 class Controller(object):
     """ Tonic controller. """
     def __init__(self, app):
         """ Constructor. """
-        self.model = None
+        self.model = Model()
 
         self.view = View(None, "Tonic")
 
         # Set events
-        self.view.Bind(wx.EVT_MENU, self.OnAbout, 
+        self.view.Bind(wx.EVT_MENU, self.OnAbout,
                        self.view.GetMenuBar().menuAbout)
-        self.view.Bind(wx.EVT_MENU, self.OnExit, 
+        self.view.Bind(wx.EVT_MENU, self.OnExit,
                        self.view.GetMenuBar().menuExit)
 
+        # retrieve packages
+        self.model.refresh()
         self.__populate_list_pkg()
 
     def OnAbout(self, event):
@@ -33,11 +36,8 @@ class Controller(object):
 
     def __populate_list_pkg(self):
         """ Populate the package list. """
-        # package name
-        pos =  self.view.list_pkg.InsertStringItem(0, "Tonic")
-        # version
-        self.view.list_pkg.SetStringItem(pos, 1, "0.1")
-        # desc
-        self.view.list_pkg.SetStringItem(pos, 2, "Package manager")
-        # status
-        self.view.list_pkg.SetStringItem(pos, 3, "Avail")
+        pkgs = self.model.get_all_pkgs()
+        for pkg in pkgs:
+            pos = self.view.list_pkg.InsertStringItem(0, pkg["name"])
+            self.view.list_pkg.SetStringItem(pos, 1, pkg["version"])
+            self.view.list_pkg.SetStringItem(pos, 2, pkg["desc"])
