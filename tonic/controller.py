@@ -62,12 +62,12 @@ class TonicController(object):
         self.__populate_list_cat()
 
         self.current_directory = os.getcwd()
-    
+
     def on_import_file(self, event):
         """ Open File dialog """
-        dlg = wx.FileDialog(self.view, 
+        dlg = wx.FileDialog(self.view,
                             message="Choose a file",
-                            defaultDir=self.current_directory, 
+                            defaultDir=self.current_directory,
                             defaultFile="",
                             wildcard=wildcard,
                             style=wx.FD_OPEN |\
@@ -107,11 +107,18 @@ class TonicController(object):
     def __populate_list_pkg(self):
         """Populate the package list."""
         pkgs = self.model.get_packages()
+        item_data_map = {}
+        index = 0
         for cat in pkgs.values():
             for pkg in cat:
                 pos = self.view.list_pkg.InsertStringItem(0, pkg["name"])
                 self.view.list_pkg.SetStringItem(pos, 1, pkg["version"])
                 self.view.list_pkg.SetStringItem(pos, 2, pkg["description"])
+                self.view.list_pkg.SetItemData(pos, index)
+                item_data_map[index] = (pkg["name"], pkg["version"], pkg["description"])
+                index += 1
+
+        self.view.list_pkg.itemDataMap = item_data_map
 
     def __populate_list_cat(self):
         """Populate the category list."""

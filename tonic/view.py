@@ -40,9 +40,10 @@ class TonicView(wx.Frame):
         # Creating the categories list
         self.list_category = widgets.TonicCatListCtrl(self,
                                                       style=wx.LC_REPORT|
-                                                      wx.LC_NO_HEADER|
-                                                      wx.LC_LIST|
-                                                      wx.SUNKEN_BORDER)
+                                                          wx.LC_NO_HEADER|
+                                                          wx.LC_LIST|
+                                                          wx.SUNKEN_BORDER|
+                                                          wx.LC_SORT_ASCENDING)
 
         # Creating the searchbox
         self.search_box = wx.SearchCtrl(self, -1, "")
@@ -50,7 +51,8 @@ class TonicView(wx.Frame):
         # Creating the packages list
         self.list_pkg = widgets.TonicPkgListCtrl(self,
                                                  style=wx.LC_REPORT|
-                                                 wx.SUNKEN_BORDER)
+                                                      wx.SUNKEN_BORDER|
+                                                      wx.LC_SORT_ASCENDING)
 
         # Creating suppl. informations about package panel
         self.description_tab = wx.Notebook(self, -1, style=wx.NB_BOTTOM)

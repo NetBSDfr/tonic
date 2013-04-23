@@ -29,17 +29,18 @@
 
 import wx
 
-from wx.lib.mixins.listctrl import CheckListCtrlMixin, ListCtrlAutoWidthMixin
+from wx.lib.mixins.listctrl import CheckListCtrlMixin, ListCtrlAutoWidthMixin, ColumnSorterMixin
 
-class TonicPkgListCtrl(wx.ListCtrl, CheckListCtrlMixin, ListCtrlAutoWidthMixin):
+class TonicPkgListCtrl(wx.ListCtrl, CheckListCtrlMixin, ListCtrlAutoWidthMixin, ColumnSorterMixin):
     """Tonic packages list."""
     def __init__(self, parent, style):
         """Constructor."""
         wx.ListCtrl.__init__(self, parent, style = style)
         CheckListCtrlMixin.__init__(self)
         ListCtrlAutoWidthMixin.__init__(self)
+        ColumnSorterMixin.__init__(self, 3)
         self.__add_columns()
-
+        self.itemDataMap = None
 
     def __add_columns(self):
         """Create columns."""
@@ -47,3 +48,6 @@ class TonicPkgListCtrl(wx.ListCtrl, CheckListCtrlMixin, ListCtrlAutoWidthMixin):
         self.InsertColumn(1, _("version"), width=70)
         # small description
         self.InsertColumn(2, _("description"), width=200)
+
+    def GetListCtrl(self):
+        return self
