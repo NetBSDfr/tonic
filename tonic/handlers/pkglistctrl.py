@@ -25,25 +25,14 @@
 # (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF
 # THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 
-"""Events handler for TonicCatListCtrl."""
+"""Events handler for TonicPkgListCtrl."""
 
-class TonicCatListCtrlEvents(object):
-    """Provide callbacks for TonicCatListCtrl."""
+class TonicPkgListCtrlEvents(object):
+    """Provide callbacks for TonicPkgListCtrl."""
     def __init__(self, view, model):
         self.view = view
         self.model = model
 
-    def on_item_selected(self, event):
-        category = event.GetText()
-        if category == "--":
-            pass
-        elif category == "All":
-            pkgs = self.model.get_all_pkgs()
-        else:
-            pkgs = self.model.get_pkgs_from_cat(category)
-        self.view.list_pkg.populate_list(pkgs, self.model.get_marked_pkgs())
-
-    def on_create(self):
-        cats = sorted(self.model.get_categories(), reverse=True)
-        self.view.list_category.populate_list(cats)
-        self.view.list_category.Select(2, True)
+    def on_check_item(self, index, flag):
+        if flag:
+            self.model.mark_pkg(self.view.list_pkg.get_package_name(index))

@@ -42,7 +42,18 @@ class TonicModel(object):
     def __init__(self):
         """Constructor."""
         self.pykgin = Pykgin()
-        self.marked = []
+        self.installed_pkgs = []
+        self.marked_pkgs = []
+
+        self.__init_marked_pkgs()
+
+    def __init_marked_pkgs(self):
+        """Retrieve installed packages and create first marked list."""
+        pkg_list = self.pykgin.list()
+        for pkg in pkg_list:
+            self.installed_pkgs.append(pkg["name"])
+
+        self.marked_pkgs = self.installed_pkgs
 
     def get_categories(self):
         """Return only categories name."""
@@ -56,5 +67,11 @@ class TonicModel(object):
         """Return a list of all packages."""
         return self.pykgin.avail()
 
-    def add_marked(self, pkg):
-        self.marked.append(pkg)
+    def mark_pkg(self, pkg):
+        """Add a pkg in marked list for future install."""
+        if not pkg in self.marked_pkgs:
+            self.marked_pkgs.append(pkg)
+
+    def get_marked_pkgs(self):
+        """Return the list of currently marked packages."""
+        return self.marked_pkgs
