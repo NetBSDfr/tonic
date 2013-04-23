@@ -54,6 +54,7 @@ class TonicController(object):
                        self.view.GetMenuBar().import_menu)
         self.view.Bind(wx.EVT_MENU, self.on_export_file,
                        self.view.GetMenuBar().export_menu)
+        self.view.Bind(wx.EVT_LIST_ITEM_SELECTED, self.on_cat_list_click, self.view.list_category)
 
         # retrieve packages
         self.model.refresh()
@@ -104,9 +105,21 @@ class TonicController(object):
         """action on exit"""
         self.view.Close(True)
 
-    def __populate_list_pkg(self):
+    def on_cat_list_click(self, event) :
+        category = event.GetText()
+        if category == "--":
+            pass
+        elif category == "All":
+            self.__populate_list_pkg()
+        else:
+            self.__populate_list_pkg(category)
+
+    def __populate_list_pkg(self, cat=None):
         """Populate the package list."""
-        pkgs = self.model.get_packages()
+        if not cat:
+            pkgs = self.model.get_packages()
+        else:
+            pkgs = self.model.get_pkgs_from_cat(cat)
         item_data_map = {}
         index = 0
         for cat in pkgs.values():

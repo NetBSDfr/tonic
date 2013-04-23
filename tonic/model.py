@@ -55,7 +55,7 @@ class TonicModel(object):
 
     def get_pkgs_from_cat(self, cat):
         """Return packages from one category."""
-        return self.packages[cat]
+        return {cat: self.packages[cat]}
 
     def get_all_pkgs(self):
         """Return a list of all packages."""
