@@ -10,7 +10,14 @@ class View(wx.Frame):
     def __init__(self, parent, title):
         """ Constructor. """
         wx.Frame.__init__(self, parent, title=title,
-                              pos=(-1, -1), size=(600,400))
+                              pos=(-1, -1), size=(800,600))
+        self.list_category = wx.ListBox(self, -1, choices=[])
+        self.search_box = wx.SearchCtrl(self, -1, "")
+        self.list_pkg = TonicPkgListCtrl(self, 
+                                         style=wx.LC_REPORT|wx.SUNKEN_BORDER)
+        self.description_tab = wx.Notebook(self, -1, style=wx.NB_BOTTOM)
+        self.description = wx.Panel(self.description_tab, -1)
+        self.description_tab_pane_2 = wx.Panel(self.description_tab, -1)
 
         # Creating the statusbar
         self.CreateStatusBar()
@@ -24,9 +31,34 @@ class View(wx.Frame):
         self.SetToolBar(toolbar)
         toolbar.Realize()
 
-        # Creating the packages list
-        self.pkglist = TonicPkgListCtrl(self, style=wx.LC_REPORT|wx.SUNKEN_BORDER)
-        self.control = self.pkglist
+        # Layout
+        self.__set_layout_properties()
+        self.__do_layout()
 
         # Tadam
         self.Show(True)
+
+    def __set_layout_properties(self):
+        """ Set layout properties """
+        self.list_category.SetMinSize((250, 524))
+        self.search_box.SetMinSize((550, 25))
+        self.description.SetMinSize((345, 190))
+        self.description_tab_pane_2.SetMinSize((345, 190))
+        self.description_tab.SetMinSize((350, 220))
+
+    def __do_layout(self):
+        """ Construct the layout """
+        # The first box.
+        h_sizer = wx.BoxSizer(wx.HORIZONTAL)
+        # The second box, the box into the box, yodawg.
+        v_sizer = wx.BoxSizer(wx.VERTICAL)
+    
+        h_sizer.Add(self.list_category, 0, 0, 0)
+        v_sizer.Add(self.search_box, 0, 0, 0)
+        v_sizer.Add(self.list_pkg, 1, wx.EXPAND, 0)
+        self.description_tab.AddPage(self.description, "test1")
+        self.description_tab.AddPage(self.description_tab_pane_2, "test2")
+        v_sizer.Add(self.description_tab, 1, wx.EXPAND, 0)
+        h_sizer.Add(v_sizer, 1, wx.EXPAND, 0)
+        self.SetSizer(h_sizer)
+        self.Layout()
