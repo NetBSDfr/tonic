@@ -34,24 +34,10 @@ class TonicModel(object):
     def __init__(self):
         """Constructor."""
         self.pykgin = Pykgin()
-        self.packages = None
-
-    def update(self):
-        """Update pkgin."""
-        self.pykgin.update()
-
-    def refresh(self):
-        """Retrieve all packages in one list."""
-        # packages sorted by categories
-        self.packages = self.pykgin.avail_categories()
 
     def get_categories(self):
         """Return only categories name."""
         return self.pykgin.show_all_categories()
-
-    def get_packages(self):
-        """Return packages."""
-        return self.packages
 
     def get_pkgs_from_cat(self, cat):
         """Return packages from one category."""
