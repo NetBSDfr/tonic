@@ -44,6 +44,7 @@ class TonicModel(object):
         self.pykgin = Pykgin()
         self.installed_pkgs = []
         self.marked_pkgs = []
+        self.remove_pkgs = []
 
         self.__init_marked_pkgs()
 
@@ -53,7 +54,7 @@ class TonicModel(object):
         for pkg in pkg_list:
             self.installed_pkgs.append(pkg["name"])
 
-        self.marked_pkgs = self.installed_pkgs
+        self.marked_pkgs = list(self.installed_pkgs)
 
     def get_categories(self):
         """Return only categories name."""
@@ -72,6 +73,18 @@ class TonicModel(object):
         if not pkg in self.marked_pkgs:
             self.marked_pkgs.append(pkg)
 
-    def get_marked_pkgs(self):
-        """Return the list of currently marked packages."""
-        return self.marked_pkgs
+    def unmark_pkg(self, pkg):
+        """Remove a pkg in marked list for future install."""
+        if pkg in self.marked_pkgs:
+            self.marked_pkgs.remove(pkg)
+
+    def remove_pkg(self, pkg):
+        """Add a pkg in remove list for future uninstall."""
+        if not pkg in self.remove_pkgs:
+            self.remove_pkgs.append(pkg)
+
+    def unremove_pkg(self, pkg):
+        """Remove a pkg in remove list for future uninstall."""
+        if pkg in self.remove_pkgs:
+            self.remove_pkgs.remove(pkg)
+

@@ -34,5 +34,22 @@ class TonicPkgListCtrlEvents(object):
         self.model = model
 
     def on_check_item(self, index, flag):
+        pkg = self.view.list_pkg.get_package_name(index)
+        # Checked
         if flag:
-            self.model.mark_pkg(self.view.list_pkg.get_package_name(index))
+            if pkg in self.model.installed_pkgs:
+                self.view.list_pkg.SetItemBackgroundColour(index, "white")
+                self.model.unremove_pkg(pkg)
+            else:
+                self.view.list_pkg.SetItemBackgroundColour(index, "green")
+                self.model.mark_pkg(pkg)
+        # Unchecked
+        else:
+            if pkg in self.model.installed_pkgs:
+                self.view.list_pkg.SetItemBackgroundColour(index, "red")
+                self.model.remove_pkg(pkg)
+            elif pkg in self.model.marked_pkgs:
+                self.view.list_pkg.SetItemBackgroundColour(index, "white")
+                self.model.unmark_pkg(pkg)
+
+

@@ -41,7 +41,7 @@ class TonicCatListCtrlEvents(object):
             pkgs = self.model.get_all_pkgs()
         else:
             pkgs = self.model.get_pkgs_from_cat(category)
-        self.view.list_pkg.populate_list(pkgs, self.model.get_marked_pkgs())
+        self.view.list_pkg.populate_list(pkgs, self.model.marked_pkgs, self.model.remove_pkgs)
 
     def on_create(self):
         cats = sorted(self.model.get_categories(), reverse=True)
