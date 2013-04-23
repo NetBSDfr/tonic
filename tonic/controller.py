@@ -121,6 +121,8 @@ class TonicController(object):
             pkgs = self.model.get_pkgs_from_cat(cat)
         item_data_map = {}
         index = 0
+        # safety clear the list
+        self.view.list_pkg.DeleteAllItems()
         for pkg in pkgs:
             pos = self.view.list_pkg.InsertStringItem(0, pkg["name"])
             self.view.list_pkg.SetStringItem(pos, 1, pkg["version"])
