@@ -1,4 +1,4 @@
-#!/bin/env python
+#!/usr/bin/env python
 #
 # Copyright (c) 2013 Guillaume Delpierre <gde@llew.me>
 # Copyright (c) 2013 Sylvain Mora <sylvain.mora@solevis.net>
@@ -25,30 +25,36 @@
 # (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF
 # THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 
-import os
-from setuptools import setup
+"""Main script for Tonic."""
 
-setup(
-    name = "tonic",
-    version = "0.1-dev",
-    author = ["Guillaume Delpierre", "Sylvain Mora"],
-    author_email = ["gde@llew.me", "sylvain.mora@solevis.net"],
-    description = ("A simple GUI for pkgin."),
-    license = "BSD",
-    keywords = "package manager gui pkgin tonic pkgsrc",
-    url = "http://tonic.pkgin.net/",
-    packages = ['tonic', 'tonic.widgets'],
-    scripts = ["./tonic-client"],
-    install_requires = ["pykgin"],
-    long_description = "Tonic is a GUI written with wxWidget to "\
-                       "manage binary package from pkgsrc using "\
-                       "pykgin as backend for pkgin",
-    classifiers=[
-        "Development Status :: 1 - Planning",
-        "Topic :: Utilities",
-        "License :: OSI Approved :: BSD License",
-        "Natural Language :: English",
-        "Operating System :: Unix",
-        "Programming Language :: Python",
-    ],
-)
+try:
+    import wx
+except ImportError:
+    raise ImportError,"The wxPython module is required to run this program"
+
+import os, sys
+import gettext
+from controller import TonicController
+
+def setup_i18n():
+    basepath = os.path.abspath(os.path.dirname(__file__))
+    localedir = os.path.join(basepath, "locale")
+    # Default OS lang
+    langid = wx.LANGUAGE_DEFAULT
+    # Set locale for wxWidgets
+    mylocale = wx.Locale(langid)
+    # Set up Python's gettext
+    translation = gettext.translation("tonic", localedir, \
+                                            [mylocale.GetCanonicalName()], \
+                                            fallback = True)
+    translation.install()
+
+def main():
+    """Main function."""
+    setup_i18n()
+    app = wx.App(False)
+    tonic = TonicController(app)
+    app.MainLoop()
+
+if __name__ == '__main__':
+    main()

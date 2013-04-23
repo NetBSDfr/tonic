@@ -1,4 +1,4 @@
-#!/bin/env python
+#!/usr/bin/env python
 #
 # Copyright (c) 2013 Guillaume Delpierre <gde@llew.me>
 # Copyright (c) 2013 Sylvain Mora <sylvain.mora@solevis.net>
@@ -25,30 +25,43 @@
 # (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF
 # THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 
-import os
-from setuptools import setup
+"""Model for Tonic."""
 
-setup(
-    name = "tonic",
-    version = "0.1-dev",
-    author = ["Guillaume Delpierre", "Sylvain Mora"],
-    author_email = ["gde@llew.me", "sylvain.mora@solevis.net"],
-    description = ("A simple GUI for pkgin."),
-    license = "BSD",
-    keywords = "package manager gui pkgin tonic pkgsrc",
-    url = "http://tonic.pkgin.net/",
-    packages = ['tonic', 'tonic.widgets'],
-    scripts = ["./tonic-client"],
-    install_requires = ["pykgin"],
-    long_description = "Tonic is a GUI written with wxWidget to "\
-                       "manage binary package from pkgsrc using "\
-                       "pykgin as backend for pkgin",
-    classifiers=[
-        "Development Status :: 1 - Planning",
-        "Topic :: Utilities",
-        "License :: OSI Approved :: BSD License",
-        "Natural Language :: English",
-        "Operating System :: Unix",
-        "Programming Language :: Python",
-    ],
-)
+from pykgin import Pykgin
+
+class TonicModel(object):
+    """Model to manage packages."""
+    def __init__(self):
+        """Constructor."""
+        self.pykgin = Pykgin()
+        self.packages = None
+
+    def update(self):
+        """Update pkgin."""
+        self.pykgin.update()
+
+    def refresh(self):
+        """Retrieve all packages in one list."""
+        # packages sorted by categories
+        self.packages = self.pykgin.avail_categories()
+
+    def get_categories(self):
+        """Return only categories name."""
+        return self.packages.keys()
+
+    def get_packages(self):
+        """Return packages."""
+        return self.packages
+
+    def get_pkgs_from_cat(self, cat):
+        """Return packages from one category."""
+        return self.packages[cat]
+
+    def get_all_pkgs(self):
+        """Return a list of all packages."""
+        result = []
+        for key in self.packages.keys():
+            for value in self.packages[key]:
+                result.append(value)
+
+        return result
