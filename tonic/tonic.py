@@ -34,18 +34,18 @@ except ImportError:
 
 import os, sys
 import gettext
+import locale
 from controller import TonicController
 
 def setup_i18n():
     basepath = os.path.abspath(os.path.dirname(__file__))
     localedir = os.path.join(basepath, "locale")
     # Default OS lang
-    langid = wx.LANGUAGE_DEFAULT
-    # Set locale for wxWidgets
-    mylocale = wx.Locale(langid)
+    locale.setlocale(locale.LC_ALL, '')
+    default_locale = locale.getlocale()[0]
     # Set up Python's gettext
     translation = gettext.translation("tonic", localedir, \
-                                            [mylocale.GetCanonicalName()], \
+                                            [default_locale], \
                                             fallback = True)
     translation.install()
 
