@@ -53,7 +53,7 @@ class TonicController(object):
 
     def on_about(self, event):
         """blabla some stuff about tonic"""
-        dial_about = wx.MessageDialog(self, _("tonic_about_msg"),
+        dial_about = wx.MessageDialog(self.view, _("tonic_about_msg"),
                                       "About", wx.OK)
         dial_about.ShowModal()
         dial_about.Destroy()
