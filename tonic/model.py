@@ -1,6 +1,6 @@
 #!/usr/bin/env python
 #
-# Copyright (c) 2013 Guilaume Delpierre <gde@llew.me>
+# Copyright (c) 2013 Guillaume Delpierre <gde@llew.me>
 # Copyright (c) 2013 Sylvain Mora <sylvain.mora@solevis.net>
 # All rights reserved.
 #
@@ -30,42 +30,38 @@
 from pykgin import Pykgin
 
 class TonicModel(object):
-   """Model to manage packages."""
+    """Model to manage packages."""
     def __init__(self):
-       """Constructor."""
+        """Constructor."""
         self.pykgin = Pykgin()
         self.packages = None
 
     def update(self):
-       """Update pkgin."""
+        """Update pkgin."""
         self.pykgin.update()
 
     def refresh(self):
-       """Retrieve all packages in one list."""
-        # all packages
-        avail = self.pykgin.avail()
+        """Retrieve all packages in one list."""
         # packages sorted by categories
         self.packages = self.pykgin.avail_categories()
-        # fusion
-        for cat in self.packages:
-            for pkg in self.packages[cat]:
-                pkg_full = (item for item in avail \
-                                if item["name"] == pkg["name"]).next()
-                pkg["desc"] = pkg_full["description"]
 
     def get_categories(self):
-       """Return only categories name."""
+        """Return only categories name."""
         return self.packages.keys()
 
+    def get_packages(self):
+        """Return packages."""
+        return self.packages
+
     def get_pkgs_from_cat(self, cat):
-       """Return packages from one category."""
+        """Return packages from one category."""
         return self.packages[cat]
 
     def get_all_pkgs(self):
-       """Return a list of all packages."""
+        """Return a list of all packages."""
         result = []
         for key in self.packages.keys():
-            for pkg in self.packages[key]:
-                result.append(pkg)
+            for value in self.packages[key]:
+                result.append(value)
 
         return result

@@ -1,6 +1,6 @@
 #!/usr/bin/env python
 #
-# Copyright (c) 2013 Guilaume Delpierre <gde@llew.me>
+# Copyright (c) 2013 Guillaume Delpierre <gde@llew.me>
 # Copyright (c) 2013 Sylvain Mora <sylvain.mora@solevis.net>
 # All rights reserved.
 #
@@ -64,16 +64,17 @@ class TonicController(object):
 
     def __populate_list_pkg(self):
         """Populate the package list."""
-        pkgs = self.model.get_all_pkgs()
-        for pkg in pkgs:
-            pos = self.view.list_pkg.InsertStringItem(0, pkg["name"])
-            self.view.list_pkg.SetStringItem(pos, 1, pkg["version"])
-            self.view.list_pkg.SetStringItem(pos, 2, pkg["desc"])
+        pkgs = self.model.get_packages()
+        for cat in pkgs.values():
+            for pkg in cat:
+                pos = self.view.list_pkg.InsertStringItem(0, pkg["name"])
+                self.view.list_pkg.SetStringItem(pos, 1, pkg["version"])
+                self.view.list_pkg.SetStringItem(pos, 2, pkg["description"])
 
     def __populate_list_cat(self):
         """Populate the category list."""
         cats = self.model.get_categories()
         for cat in cats:
             self.view.list_category.InsertStringItem(0, cat)
-            self.view.list_category.InsertStringItem(0, "--")
-            self.view.list_category.InsertStringItem(0, _("all_category_name"))
+        self.view.list_category.InsertStringItem(0, "--")
+        self.view.list_category.InsertStringItem(0, _("all_category_name"))

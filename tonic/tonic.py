@@ -1,6 +1,6 @@
 #!/usr/bin/env python
 #
-# Copyright (c) 2013 Guilaume Delpierre <gde@llew.me>
+# Copyright (c) 2013 Guillaume Delpierre <gde@llew.me>
 # Copyright (c) 2013 Sylvain Mora <sylvain.mora@solevis.net>
 # All rights reserved.
 #
@@ -39,7 +39,6 @@ from controller import TonicController
 def setup_i18n():
     basepath = os.path.abspath(os.path.dirname(__file__))
     localedir = os.path.join(basepath, "locale")
-    print localedir
     # Default OS lang
     langid = wx.LANGUAGE_DEFAULT
     # Set locale for wxWidgets
