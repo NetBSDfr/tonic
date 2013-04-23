@@ -59,3 +59,7 @@ class TonicController(object):
         # TODO: Create custom event => EVT_WIDGET_CREATED
         cat_list_evt.on_create()
 
+        # Packages list
+        pkg_list_evt =  handlers.TonicPkgListCtrlEvents(self.view, self.model)
+        self.view.list_pkg.OnCheckItem = pkg_list_evt.on_check_item
+

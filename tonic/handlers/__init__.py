@@ -26,4 +26,5 @@
 # THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 
 from catlistctrl import TonicCatListCtrlEvents
+from pkglistctrl import TonicPkgListCtrlEvents
 from menubar import TonicMenuBarEvents

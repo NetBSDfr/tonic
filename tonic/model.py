@@ -31,17 +31,18 @@ from pykgin import Pykgin
 
 class TonicModel(object):
     """Model to manage packages."""
-    #instance = None
+    instance = None
 
-    #def __new__(cls, *args, **kargs):
-    #    """Create instance of the class."""
-    #    if cls.instance is None:
-    #        cls.instance = object.__new__(cls, *args, **kargs)
-    #    return cls.instance
+    def __new__(cls, *args, **kargs):
+        """Create instance of the class."""
+        if cls.instance is None:
+            cls.instance = object.__new__(cls, *args, **kargs)
+        return cls.instance
 
     def __init__(self):
         """Constructor."""
         self.pykgin = Pykgin()
+        self.marked = []
 
     def get_categories(self):
         """Return only categories name."""
@@ -54,3 +55,6 @@ class TonicModel(object):
     def get_all_pkgs(self):
         """Return a list of all packages."""
         return self.pykgin.avail()
+
+    def add_marked(self, pkg):
+        self.marked.append(pkg)

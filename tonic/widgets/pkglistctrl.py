@@ -53,7 +53,7 @@ class TonicPkgListCtrl(wx.ListCtrl, CheckListCtrlMixin, ListCtrlAutoWidthMixin, 
     def GetListCtrl(self):
         return self
 
-    def populate_list(self, pkgs):
+    def populate_list(self, pkgs, marked):
         """Populate the package list."""
         # safety clear the list
         self.DeleteAllItems()
@@ -61,6 +61,8 @@ class TonicPkgListCtrl(wx.ListCtrl, CheckListCtrlMixin, ListCtrlAutoWidthMixin, 
         for pkg in pkgs:
             # insert a new row
             pos = self.InsertStringItem(0, pkg["name"])
+            if pkg["name"] in marked:
+                self.CheckItem(pos, True)
             self.SetStringItem(pos, 1, pkg["version"])
             self.SetStringItem(pos, 2, pkg["description"])
             self.SetItemData(pos, index)
@@ -68,3 +70,5 @@ class TonicPkgListCtrl(wx.ListCtrl, CheckListCtrlMixin, ListCtrlAutoWidthMixin, 
             self.itemDataMap[index] = (pkg["name"], pkg["version"], pkg["description"])
             index += 1
 
+    def get_package_name(self, index):
+        return self.GetItem(index, 0).GetText()
