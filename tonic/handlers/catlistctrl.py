@@ -25,26 +25,25 @@
 # (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF
 # THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 
-"""View for Tonic categories list."""
+"""Events handler for TonicCatListCtrl."""
 
-import wx
-from wx.lib.mixins.listctrl import ListCtrlAutoWidthMixin
+class TonicCatListCtrlEvents(object):
+    """Provide callbacks for TonicCatListCtrl."""
+    def __init__(self, view, model):
+        self.view = view
+        self.model = model
 
-class TonicCatListCtrl(wx.ListCtrl, ListCtrlAutoWidthMixin):
-    """Tonic categories list."""
-    def __init__(self, parent, style):
-        """Constructor."""
-        wx.ListCtrl.__init__(self, parent, style = style)
-        ListCtrlAutoWidthMixin.__init__(self)
-        self.__add_columns()
+    def on_item_selected(self, event):
+        category = event.GetText()
+        if category == "--":
+            pass
+        elif category == "All":
+            pkgs = self.model.get_all_pkgs()
+        else:
+            pkgs = self.model.get_pkgs_from_cat(category)
+        self.view.list_pkg.populate_list(pkgs)
 
-    def __add_columns(self):
-        """Create columns."""
-        self.InsertColumn(0, _("categories"), width=150)
-
-    def populate_list(self, cats):
-        """Populate the category list."""
-        for cat in cats:
-            self.InsertStringItem(0, cat)
-        self.InsertStringItem(0, "--")
-        self.InsertStringItem(0, _("all_category_name"))
+    def on_create(self):
+        cats = sorted(self.model.get_categories(), reverse=True)
+        self.view.list_category.populate_list(cats)
+        self.view.list_category.Select(2, True)

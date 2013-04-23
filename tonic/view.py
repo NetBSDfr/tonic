@@ -28,7 +28,6 @@
 """Main Tonic view."""
 
 import wx
-
 import widgets
 
 class TonicView(wx.Frame):

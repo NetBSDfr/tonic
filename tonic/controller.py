@@ -27,16 +27,10 @@
 
 """Controller for Tonic."""
 
-import os
-
 import wx
-
+import handlers
 from view import TonicView
 from model import TonicModel
-
-wildcard = "Tonic files (*.tonic)|*.tonic | "\
-           "Conf files (*.conf)|*.conf |"\
-           "All files (*.*)|*.*"
 
 class TonicController(object):
     """Tonic controller."""
@@ -45,98 +39,23 @@ class TonicController(object):
         self.model = TonicModel()
         self.view = TonicView(None, _("tonic_title"))
 
-        # Set events
-        self.view.Bind(wx.EVT_MENU, self.on_about,
+        ### Set events
+
+        # Menubar
+        menubar_evt = handlers.TonicMenuBarEvents(self.view, self.model)
+        self.view.Bind(wx.EVT_MENU, menubar_evt.on_about, \
                        self.view.GetMenuBar().about_menu)
-        self.view.Bind(wx.EVT_MENU, self.on_exit,
+        self.view.Bind(wx.EVT_MENU, menubar_evt.on_exit, \
                        self.view.GetMenuBar().exit_menu)
-        self.view.Bind(wx.EVT_MENU, self.on_import_file,
+        self.view.Bind(wx.EVT_MENU, menubar_evt.on_import_file, \
                        self.view.GetMenuBar().import_menu)
-        self.view.Bind(wx.EVT_MENU, self.on_export_file,
+        self.view.Bind(wx.EVT_MENU, menubar_evt.on_export_file, \
                        self.view.GetMenuBar().export_menu)
-        self.view.Bind(wx.EVT_LIST_ITEM_SELECTED, self.on_cat_list_click, self.view.list_category)
 
-        # populate each lists
-        self.__populate_list_pkg(sorted(self.model.get_categories())[0])
-        self.__populate_list_cat()
-        self.view.list_category.Select(2, True)
+        # Category list
+        cat_list_evt =  handlers.TonicCatListCtrlEvents(self.view, self.model)
+        self.view.Bind(wx.EVT_LIST_ITEM_SELECTED, cat_list_evt.on_item_selected, \
+                       self.view.list_category)
+        # TODO: Create custom event => EVT_WIDGET_CREATED
+        cat_list_evt.on_create()
 
-        self.current_directory = os.getcwd()
-
-    def on_import_file(self, event):
-        """ Open File dialog """
-        dlg = wx.FileDialog(self.view,
-                            message="Choose a file",
-                            defaultDir=self.current_directory,
-                            defaultFile="",
-                            wildcard=wildcard,
-                            style=wx.FD_OPEN |\
-                            wx.FD_MULTIPLE |\
-                            wx.FD_CHANGE_DIR)
-        if dlg.ShowModal() == wx.ID_OK:
-            paths = dlg.GetPaths()
-            print "You chose the following file(s):"
-            for path in paths:
-                print path
-        dlg.Destroy()
-
-    def on_export_file(self, event):
-        """ Save file dialog """
-        dlg = wx.FileDialog(self.view,
-                           message="Save file as ...",
-                           defaultDir=self.current_directory,
-                           defaultFile="",
-                           wildcard=wildcard,
-                           style=wx.FD_SAVE)
-        if dlg.ShowModal() == wx.ID_OK:
-           path = dlg.GetPath()
-           print "You chose the following filename: %s" % path
-        dlg.Destroy()
-
-    def on_about(self, event):
-        """blabla some stuff about tonic"""
-        dial_about = wx.MessageDialog(self.view, _("tonic_about_msg"),
-                                      "About", wx.OK)
-        dial_about.ShowModal()
-        dial_about.Destroy()
-
-    def on_exit(self, event):
-        """action on exit"""
-        self.view.Close(True)
-
-    def on_cat_list_click(self, event) :
-        category = event.GetText()
-        if category == "--":
-            pass
-        elif category == "All":
-            self.__populate_list_pkg()
-        else:
-            self.__populate_list_pkg(category)
-
-    def __populate_list_pkg(self, cat=None):
-        """Populate the package list."""
-        if not cat:
-            pkgs = self.model.get_all_pkgs()
-        else:
-            pkgs = self.model.get_pkgs_from_cat(cat)
-        item_data_map = {}
-        index = 0
-        # safety clear the list
-        self.view.list_pkg.DeleteAllItems()
-        for pkg in pkgs:
-            pos = self.view.list_pkg.InsertStringItem(0, pkg["name"])
-            self.view.list_pkg.SetStringItem(pos, 1, pkg["version"])
-            self.view.list_pkg.SetStringItem(pos, 2, pkg["description"])
-            self.view.list_pkg.SetItemData(pos, index)
-            item_data_map[index] = (pkg["name"], pkg["version"], pkg["description"])
-            index += 1
-
-        self.view.list_pkg.itemDataMap = item_data_map
-
-    def __populate_list_cat(self):
-        """Populate the category list."""
-        cats = sorted(self.model.get_categories(), reverse=True)
-        for cat in cats:
-            self.view.list_category.InsertStringItem(0, cat)
-        self.view.list_category.InsertStringItem(0, "--")
-        self.view.list_category.InsertStringItem(0, _("all_category_name"))

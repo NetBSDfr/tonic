@@ -31,6 +31,14 @@ from pykgin import Pykgin
 
 class TonicModel(object):
     """Model to manage packages."""
+    #instance = None
+
+    #def __new__(cls, *args, **kargs):
+    #    """Create instance of the class."""
+    #    if cls.instance is None:
+    #        cls.instance = object.__new__(cls, *args, **kargs)
+    #    return cls.instance
+
     def __init__(self):
         """Constructor."""
         self.pykgin = Pykgin()

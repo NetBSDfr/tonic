@@ -35,12 +35,13 @@ class TonicPkgListCtrl(wx.ListCtrl, CheckListCtrlMixin, ListCtrlAutoWidthMixin, 
     """Tonic packages list."""
     def __init__(self, parent, style):
         """Constructor."""
-        wx.ListCtrl.__init__(self, parent, style = style)
+        wx.ListCtrl.__init__(self, parent, style=style)
         CheckListCtrlMixin.__init__(self)
         ListCtrlAutoWidthMixin.__init__(self)
         ColumnSorterMixin.__init__(self, 3)
+
         self.__add_columns()
-        self.itemDataMap = None
+        self.itemDataMap = {}
 
     def __add_columns(self):
         """Create columns."""
@@ -51,3 +52,19 @@ class TonicPkgListCtrl(wx.ListCtrl, CheckListCtrlMixin, ListCtrlAutoWidthMixin, 
 
     def GetListCtrl(self):
         return self
+
+    def populate_list(self, pkgs):
+        """Populate the package list."""
+        # safety clear the list
+        self.DeleteAllItems()
+        index = 0
+        for pkg in pkgs:
+            # insert a new row
+            pos = self.InsertStringItem(0, pkg["name"])
+            self.SetStringItem(pos, 1, pkg["version"])
+            self.SetStringItem(pos, 2, pkg["description"])
+            self.SetItemData(pos, index)
+            # store content for future storing
+            self.itemDataMap[index] = (pkg["name"], pkg["version"], pkg["description"])
+            index += 1
+

@@ -25,26 +25,5 @@
 # (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF
 # THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 
-"""View for Tonic categories list."""
-
-import wx
-from wx.lib.mixins.listctrl import ListCtrlAutoWidthMixin
-
-class TonicCatListCtrl(wx.ListCtrl, ListCtrlAutoWidthMixin):
-    """Tonic categories list."""
-    def __init__(self, parent, style):
-        """Constructor."""
-        wx.ListCtrl.__init__(self, parent, style = style)
-        ListCtrlAutoWidthMixin.__init__(self)
-        self.__add_columns()
-
-    def __add_columns(self):
-        """Create columns."""
-        self.InsertColumn(0, _("categories"), width=150)
-
-    def populate_list(self, cats):
-        """Populate the category list."""
-        for cat in cats:
-            self.InsertStringItem(0, cat)
-        self.InsertStringItem(0, "--")
-        self.InsertStringItem(0, _("all_category_name"))
+from catlistctrl import TonicCatListCtrlEvents
+from menubar import TonicMenuBarEvents
