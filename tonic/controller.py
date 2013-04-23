@@ -122,7 +122,7 @@ class TonicController(object):
 
     def __populate_list_cat(self):
         """Populate the category list."""
-        cats = self.model.get_categories()
+        cats = sorted(self.model.get_categories(), reverse=True)
         for cat in cats:
             self.view.list_category.InsertStringItem(0, cat)
         self.view.list_category.InsertStringItem(0, "--")
