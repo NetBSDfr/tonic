@@ -47,7 +47,7 @@ class TonicModel(object):
 
     def get_categories(self):
         """Return only categories name."""
-        return self.packages.keys()
+        return self.pykgin.show_all_categories()
 
     def get_packages(self):
         """Return packages."""
@@ -55,13 +55,8 @@ class TonicModel(object):
 
     def get_pkgs_from_cat(self, cat):
         """Return packages from one category."""
-        return {cat: self.packages[cat]}
+        return self.pykgin.show_category(cat)
 
     def get_all_pkgs(self):
         """Return a list of all packages."""
-        result = []
-        for key in self.packages.keys():
-            for value in self.packages[key]:
-                result.append(value)
-
-        return result
+        return self.pykgin.avail()

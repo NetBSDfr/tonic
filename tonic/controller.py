@@ -56,8 +56,6 @@ class TonicController(object):
                        self.view.GetMenuBar().export_menu)
         self.view.Bind(wx.EVT_LIST_ITEM_SELECTED, self.on_cat_list_click, self.view.list_category)
 
-        # retrieve packages
-        self.model.refresh()
         # populate each lists
         self.__populate_list_pkg(sorted(self.model.get_categories())[0])
         self.__populate_list_cat()
@@ -118,19 +116,18 @@ class TonicController(object):
     def __populate_list_pkg(self, cat=None):
         """Populate the package list."""
         if not cat:
-            pkgs = self.model.get_packages()
+            pkgs = self.model.get_all_pkgs()
         else:
             pkgs = self.model.get_pkgs_from_cat(cat)
         item_data_map = {}
         index = 0
-        for cat in pkgs.values():
-            for pkg in cat:
-                pos = self.view.list_pkg.InsertStringItem(0, pkg["name"])
-                self.view.list_pkg.SetStringItem(pos, 1, pkg["version"])
-                self.view.list_pkg.SetStringItem(pos, 2, pkg["description"])
-                self.view.list_pkg.SetItemData(pos, index)
-                item_data_map[index] = (pkg["name"], pkg["version"], pkg["description"])
-                index += 1
+        for pkg in pkgs:
+            pos = self.view.list_pkg.InsertStringItem(0, pkg["name"])
+            self.view.list_pkg.SetStringItem(pos, 1, pkg["version"])
+            self.view.list_pkg.SetStringItem(pos, 2, pkg["description"])
+            self.view.list_pkg.SetItemData(pos, index)
+            item_data_map[index] = (pkg["name"], pkg["version"], pkg["description"])
+            index += 1
 
         self.view.list_pkg.itemDataMap = item_data_map
 
