@@ -16,8 +16,9 @@ class View(wx.Frame):
         self.list_pkg = TonicPkgListCtrl(self, 
                                          style=wx.LC_REPORT|wx.SUNKEN_BORDER)
         self.description_tab = wx.Notebook(self, -1, style=wx.NB_BOTTOM)
-        self.description = wx.Panel(self.description_tab, -1)
-        self.description_tab_pane_2 = wx.Panel(self.description_tab, -1)
+        self.description_tab_desc = wx.Panel(self.description_tab, -1)
+        self.description_tab_dep = wx.Panel(self.description_tab, -1)
+        self.description_tab_chg = wx.Panel(self.description_tab, -1)
 
         # Creating the statusbar
         self.CreateStatusBar()
@@ -42,13 +43,10 @@ class View(wx.Frame):
         """ Set layout properties """
         self.list_category.SetMinSize((250, 524))
         self.search_box.SetMinSize((550, 25))
-        self.description.SetMinSize((345, 190))
-        self.description_tab_pane_2.SetMinSize((345, 190))
-        self.description_tab.SetMinSize((350, 220))
 
     def __do_layout(self):
         """ Construct the layout """
-        # The first box.
+        # main box.
         h_sizer = wx.BoxSizer(wx.HORIZONTAL)
         # The second box, the box into the box, yodawg.
         v_sizer = wx.BoxSizer(wx.VERTICAL)
@@ -56,8 +54,12 @@ class View(wx.Frame):
         h_sizer.Add(self.list_category, 0, 0, 0)
         v_sizer.Add(self.search_box, 0, 0, 0)
         v_sizer.Add(self.list_pkg, 1, wx.EXPAND, 0)
-        self.description_tab.AddPage(self.description, "test1")
-        self.description_tab.AddPage(self.description_tab_pane_2, "test2")
+        self.description_tab.AddPage(self.description_tab_desc, 
+                                     "Description")
+        self.description_tab.AddPage(self.description_tab_dep, 
+                                     "Dependencies")
+        self.description_tab.AddPage(self.description_tab_chg, 
+                                     "Changes List")
         v_sizer.Add(self.description_tab, 1, wx.EXPAND, 0)
         h_sizer.Add(v_sizer, 1, wx.EXPAND, 0)
         self.SetSizer(h_sizer)
