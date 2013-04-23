@@ -25,4 +25,7 @@
 # (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF
 # THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 
-import tonic
+from menubar import TonicMenuBar
+from toolbar import TonicToolBar
+from pkglistctrl import TonicPkgListCtrl
+from catlistctrl import TonicCatListCtrl
