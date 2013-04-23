@@ -59,8 +59,9 @@ class TonicController(object):
         # retrieve packages
         self.model.refresh()
         # populate each lists
-        self.__populate_list_pkg()
+        self.__populate_list_pkg(sorted(self.model.get_categories())[0])
         self.__populate_list_cat()
+        self.view.list_category.Select(2, True)
 
         self.current_directory = os.getcwd()
 
