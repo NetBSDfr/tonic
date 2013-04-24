@@ -43,9 +43,10 @@ langid = wx.LANGUAGE_DEFAULT
 # Set locale for wxWidgets
 mylocale = wx.Locale(langid)
 # Set up Python's gettext
-mytranslation = gettext.translation("tonic", localedir,
-                                        [mylocale.GetCanonicalName()], fallback = True)
-mytranslation.install()
+translation = gettext.translation("tonic", localedir, \
+                                        [mylocale.GetCanonicalName()], \
+                                        fallback = True)
+translation.install()
 
 def main():
     """Main function."""
