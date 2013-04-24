@@ -62,8 +62,8 @@ class View(wx.Frame):
 
     def __set_layout_properties(self):
         """ Set layout properties """
-        self.list_category.SetMinSize((300, 524))
-        self.search_box.SetMinSize((550, 25))
+        self.list_category.SetMinSize((300, 460))
+        self.search_box.SetMinSize((450, 25))
 
     def __do_layout(self):
         """ Construct the layout """
