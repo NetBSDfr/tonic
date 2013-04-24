@@ -36,20 +36,23 @@ import os, sys
 import gettext
 from controller import TonicController
 
-basepath = os.path.abspath(os.path.dirname(sys.argv[0]))
-localedir = os.path.join(basepath, "locale")
-# Default OS lang
-langid = wx.LANGUAGE_DEFAULT
-# Set locale for wxWidgets
-mylocale = wx.Locale(langid)
-# Set up Python's gettext
-translation = gettext.translation("tonic", localedir, \
-                                        [mylocale.GetCanonicalName()], \
-                                        fallback = True)
-translation.install()
+def setup_i18n():
+    basepath = os.path.abspath(os.path.dirname(__file__))
+    localedir = os.path.join(basepath, "locale")
+    print localedir
+    # Default OS lang
+    langid = wx.LANGUAGE_DEFAULT
+    # Set locale for wxWidgets
+    mylocale = wx.Locale(langid)
+    # Set up Python's gettext
+    translation = gettext.translation("tonic", localedir, \
+                                            [mylocale.GetCanonicalName()], \
+                                            fallback = True)
+    translation.install()
 
 def main():
     """Main function."""
+    setup_i18n()
     app = wx.App(False)
     tonic = TonicController(app)
     app.MainLoop()
