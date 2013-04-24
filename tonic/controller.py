@@ -3,7 +3,7 @@
 # Copyright (c) 2013 Guilaume Delpierre <gde@llew.me>
 # Copyright (c) 2013 Sylvain Mora <sylvain.mora@solevis.net>
 # All rights reserved.
-# 
+#
 # Redistribution and use in source and binary forms, with or without
 # modification, are permitted provided that the following conditions
 # are met:
@@ -13,7 +13,7 @@
 # 2. Redistributions in binary form must reproduce the above copyright
 # notice, this list of conditions and the following disclaimer in the
 # documentation and/or other materials provided with the distribution.
-# 
+#
 # THIS SOFTWARE IS PROVIDED BY THE AUTHOR(S) ``AS IS'' AND ANY EXPRESS OR
 # IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE IMPLIED WARRANTIES
 # OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE DISCLAIMED.
@@ -33,13 +33,13 @@ except ImportError:
     raise ImportError,"The wxPython module is required to run this program"
 
 from view import TonicView
-from model import TonicModel
+#from model import TonicModel
 
 class TonicController(object):
     """ Tonic controller. """
     def __init__(self, app):
         """ Constructor. """
-        self.model = TonicModel()
+        #self.model = TonicModel()
         self.view = TonicView(None, "Tonic")
 
         # Set events
@@ -49,10 +49,10 @@ class TonicController(object):
                        self.view.GetMenuBar().exit_menu)
 
         # retrieve packages
-        self.model.refresh()
+        #self.model.refresh()
         # populate each lists
-        self.__populate_list_pkg()
-        self.__populate_list_cat()
+        #self.__populate_list_pkg()
+        #self.__populate_list_cat()
 
     def on_about(self, event):
         """ blabla some stuff about tonic """
