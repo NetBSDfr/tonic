@@ -38,7 +38,7 @@ Internationalization
 
 ```bash
 mkdir -p tonic/locale/de/LC_MESSAGES
-cp tonic/local/en/LC_MESSAGES/tonic.pot tonic/loca/de/LC_MESSAGES/
-poedit tonic/loca/de/LC_MESSAGES/tonic.pot
+cp tonic/locale/en/LC_MESSAGES/tonic.pot tonic/locale/de/LC_MESSAGES/
+poedit tonic/locale/de/LC_MESSAGES/tonic.pot
 ```
 
