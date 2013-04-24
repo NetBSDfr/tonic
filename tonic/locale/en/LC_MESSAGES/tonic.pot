@@ -1,0 +1,139 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
+# This file is distributed under the same license as the PACKAGE package.
+# FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: Tonic-dev-0.1\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2013-04-24 19:27+0200\n"
+"PO-Revision-Date: 2013-04-24 22:08+0100\n"
+"Last-Translator: Guillaume Delpierre <gde@llew.me>\n"
+"Language-Team: LANGUAGE <gde@llew.me>\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"X-Generator: Poedit 1.5.4\n"
+"Language: EN\n"
+"X-Poedit-SourceCharset: UTF-8\n"
+
+#: controller.py:40
+msgid "tonic_title"
+msgstr "Tonic :: pkgin GUI"
+
+#: controller.py:56
+msgid "tonic_about_msg"
+msgstr "Tonic v0.1-dev"
+
+#: controller.py:79
+msgid "all_category_name"
+msgstr "All"
+
+#: view.py:102 widgets/pkglistctrl.py:49
+msgid "description"
+msgstr "Description"
+
+#: view.py:104
+msgid "dependencies"
+msgstr "Dependencies"
+
+#: view.py:106
+msgid "changes_list"
+msgstr "Changes List"
+
+#: widgets/catlistctrl.py:45
+msgid "categories"
+msgstr "Categories"
+
+#: widgets/menubar.py:57
+msgid "open_menu"
+msgstr "&Open"
+
+#: widgets/menubar.py:58
+msgid "open_menu_tooltip"
+msgstr "Open import file"
+
+#: widgets/menubar.py:60
+msgid "exit_menu"
+msgstr "&Exit"
+
+#: widgets/menubar.py:60
+msgid "exit_menu_tooltip"
+msgstr "Exit"
+
+#: widgets/menubar.py:65
+msgid "unmark_all_menu"
+msgstr "&Unmark All"
+
+#: widgets/menubar.py:66
+msgid "unmark_all_menu_tooltip"
+msgstr "Unmark All"
+
+#: widgets/menubar.py:68
+msgid "update_menu"
+msgstr "&Update"
+
+#: widgets/menubar.py:69
+msgid "update_menu_tooltip"
+msgstr "Update"
+
+#: widgets/menubar.py:71
+msgid "apply_menu"
+msgstr "&Apply"
+
+#: widgets/menubar.py:72
+msgid "aplly_menu_tooltip"
+msgstr "Apply"
+
+#: widgets/menubar.py:77
+msgid "repository_menu"
+msgstr "&Repository"
+
+#: widgets/menubar.py:78
+msgid "repository_menu_tooltip"
+msgstr "Repository"
+
+#: widgets/menubar.py:83
+msgid "about_menu_tooltip"
+msgstr "About"
+
+#: widgets/menubar.py:87
+msgid "file_menu"
+msgstr "File"
+
+#: widgets/menubar.py:88
+msgid "edit_menu"
+msgstr "Edit"
+
+#: widgets/menubar.py:89
+msgid "settings_menu"
+msgstr "Settings"
+
+#: widgets/menubar.py:90
+msgid "help_menu"
+msgstr "Help"
+
+#: widgets/pkglistctrl.py:46
+msgid "package"
+msgstr "Package"
+
+#: widgets/pkglistctrl.py:47
+msgid "version"
+msgstr "Version"
+
+#: widgets/toolbar.py:60
+msgid "open"
+msgstr "Open"
+
+#: widgets/toolbar.py:61
+msgid "exit"
+msgstr "Exit"
+
+#: widgets/toolbar.py:63
+msgid "unmark_all"
+msgstr "Unmark All"
+
+#: widgets/toolbar.py:65
+msgid "install"
+msgstr "Install"

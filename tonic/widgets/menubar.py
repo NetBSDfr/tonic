@@ -69,7 +69,7 @@ class TonicMenuBar(wx.MenuBar):
                                                     _("update_menu_tooltip"))
         self.edit_menu.AppendSeparator()
         self.apply_menu = self.edit_menu.Append(wx.ID_APPLY, _("apply_menu"), \
-                                                    _("aplly_menu_tooltip"))
+                                                    _("apply_menu_tooltip"))
 
         # Settings menu
         self.settings_menu = wx.Menu()
