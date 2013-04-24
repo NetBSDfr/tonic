@@ -12,7 +12,9 @@ setup(
     url = "http://tonic.pkgin.net/",
     packages = ['tonic', 'tonic/widgets'],
     scripts = ["./tonic-client"],
-    long_description = "Tonic is a GUI written with wxWidget to manager binary package from pkgsrc using pykgin as backend for pkgin",
+    long_description = "Tonic is a GUI written with wxWidget to "\
+                       "manage binary package from pkgsrc using "\
+                       "pykgin as backend for pkgin",
     classifiers=[
         "Development Status :: 1 - Planning",
         "Topic :: Utilities",
