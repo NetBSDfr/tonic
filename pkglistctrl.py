@@ -20,5 +20,3 @@ class TonicPkgListCtrl(wx.ListCtrl, CheckListCtrlMixin, ListCtrlAutoWidthMixin):
         self.InsertColumn(1, "Version", width=70)
         # small description
         self.InsertColumn(2, "Description", width=200)
-        self.InsertColumn(3, "State", width=50)
-
