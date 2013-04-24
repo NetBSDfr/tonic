@@ -16,10 +16,10 @@ class View(wx.Frame):
                               pos=(-1, -1), size=(800,600))
         # Creating the categories list
         self.list_category = TonicCatListCtrl(self, 
-                                        style=wx.LC_REPORT|
-                                              wx.LC_NO_HEADER|
-                                              wx.LC_LIST|
-                                              wx.SUNKEN_BORDER)
+                                              style=wx.LC_REPORT|
+                                                    wx.LC_NO_HEADER|
+                                                    wx.LC_LIST|
+                                                    wx.SUNKEN_BORDER)
                                         
         # Creating the searchbox
         self.search_box = wx.SearchCtrl(self, -1, "")
@@ -34,10 +34,10 @@ class View(wx.Frame):
         self.description_tab_desc = wx.Panel(self.description_tab, -1, 
                                              style=wx.SUNKEN_BORDER|
                                                    wx.TAB_TRAVERSAL)
-        self.description_tab_dep = wx.Panel(self.description_tab, -1
+        self.description_tab_dep = wx.Panel(self.description_tab, -1,
                                              style=wx.SUNKEN_BORDER|
                                                    wx.TAB_TRAVERSAL)
-        self.description_tab_chg = wx.Panel(self.description_tab, -1
+        self.description_tab_chg = wx.Panel(self.description_tab, -1,
                                              style=wx.SUNKEN_BORDER|
                                                    wx.TAB_TRAVERSAL)
 
