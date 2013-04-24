@@ -27,10 +27,7 @@
 
 """ Controller for Tonic. """
 
-try:
-    import wx
-except ImportError:
-    raise ImportError,"The wxPython module is required to run this program"
+import wx
 
 from view import TonicView
 from model import TonicModel

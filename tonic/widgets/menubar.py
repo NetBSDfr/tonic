@@ -27,10 +27,7 @@
 
 """ Menubar view for Tonic. """
 
-try:
-    import wx
-except ImportError:
-    raise ImportError,"The wxPython module is required to run this program"
+import wx
 
 class TonicMenuBar(wx.MenuBar):
     """ Tonic menubar. """

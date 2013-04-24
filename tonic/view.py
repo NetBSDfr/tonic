@@ -27,10 +27,7 @@
 
 """ Main Tonic view. """
 
-try:
-    import wx
-except ImportError:
-    raise ImportError,"The wxPython module is required to run this program"
+import wx
 
 import widgets
 
