@@ -25,7 +25,7 @@
 # (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF
 # THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 
-""" Controller for Tonic. """
+"""Controller for Tonic."""
 
 import wx
 
@@ -33,9 +33,9 @@ from view import TonicView
 from model import TonicModel
 
 class TonicController(object):
-    """ Tonic controller. """
+   """Tonic controller."""
     def __init__(self, app):
-        """ Constructor. """
+       """Constructor."""
         self.model = TonicModel()
         self.view = TonicView(None, "Tonic")
 
@@ -52,18 +52,18 @@ class TonicController(object):
         self.__populate_list_cat()
 
     def on_about(self, event):
-        """ blabla some stuff about tonic """
+       """blabla some stuff about tonic"""
         dial_about = wx.MessageDialog(self, "Tonic rulez the world",
                                      "About", wx.OK)
         dial_about.ShowModal()
         dial_about.Destroy()
 
     def on_exit(self, event):
-        """ action on exit """
+       """action on exit"""
         self.view.Close(True)
 
     def __populate_list_pkg(self):
-        """ Populate the package list. """
+       """Populate the package list."""
         pkgs = self.model.get_all_pkgs()
         for pkg in pkgs:
             pos = self.view.list_pkg.InsertStringItem(0, pkg["name"])
@@ -71,7 +71,7 @@ class TonicController(object):
             self.view.list_pkg.SetStringItem(pos, 2, pkg["desc"])
 
     def __populate_list_cat(self):
-        """ Populate the category list. """
+       """Populate the category list."""
         cats = self.model.get_categories()
         for cat in cats:
             self.view.list_category.InsertStringItem(0, cat)

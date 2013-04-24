@@ -25,16 +25,16 @@
 # (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF
 # THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 
-""" View for Tonic packages list. """
+"""View for Tonic packages list."""
 
 import wx
 
 from wx.lib.mixins.listctrl import CheckListCtrlMixin, ListCtrlAutoWidthMixin
 
 class TonicPkgListCtrl(wx.ListCtrl, CheckListCtrlMixin, ListCtrlAutoWidthMixin):
-    """ Tonic packages list. """
+   """Tonic packages list."""
     def __init__(self, parent, style):
-        """ Constructor. """
+       """Constructor."""
         wx.ListCtrl.__init__(self, parent, style = style)
         CheckListCtrlMixin.__init__(self)
         ListCtrlAutoWidthMixin.__init__(self)
@@ -42,7 +42,7 @@ class TonicPkgListCtrl(wx.ListCtrl, CheckListCtrlMixin, ListCtrlAutoWidthMixin):
 
 
     def __add_columns(self):
-        """ Create columns. """
+       """Create columns."""
         self.InsertColumn(0, "Package", width=150)
         self.InsertColumn(1, "Version", width=70)
         # small description

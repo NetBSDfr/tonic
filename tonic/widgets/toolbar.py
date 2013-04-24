@@ -25,14 +25,14 @@
 # (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF
 # THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 
-""" View for Tonic toolbar. """
+"""View for Tonic toolbar."""
 
 import wx
 
 class TonicToolBar(wx.ToolBar):
-    """ Tonic toolbar. """
+   """Tonic toolbar."""
     def __init__(self, parent):
-        """ Constructor. """
+       """Constructor."""
         wx.ToolBar.__init__(self, parent, 
                             style=wx.TB_HORZ_TEXT)
                             
@@ -45,7 +45,7 @@ class TonicToolBar(wx.ToolBar):
         self.__fill_toolbar()
 
     def __create_icons(self):
-        """ Create icons. """
+       """Create icons."""
         self.open_ico = wx.ArtProvider.GetBitmap(wx.ART_FILE_OPEN,
                                             wx.ART_TOOLBAR, (16,16))
         self.exit_ico = wx.ArtProvider.GetBitmap(wx.ART_QUIT,
@@ -56,7 +56,7 @@ class TonicToolBar(wx.ToolBar):
                                             wx.ART_TOOLBAR, (16,16))
 
     def __fill_toolbar(self):
-        """ Insert elements in toolbar. """
+       """Insert elements in toolbar."""
         self.AddSimpleTool(wx.ID_OPEN, self.open_ico, "Open", "")
         self.AddSimpleTool(wx.ID_EXIT, self.exit_ico, "Exit", "")
         self.AddSeparator()

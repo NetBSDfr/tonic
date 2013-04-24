@@ -25,23 +25,23 @@
 # (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF
 # THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 
-""" Model for Tonic. """
+"""Model for Tonic."""
 
 from pykgin import Pykgin
 
 class TonicModel(object):
-    """ Model to manage packages. """
+   """Model to manage packages."""
     def __init__(self):
-        """ Constructor. """
+       """Constructor."""
         self.pykgin = Pykgin()
         self.packages = None
 
     def update(self):
-        """ Update pkgin. """
+       """Update pkgin."""
         self.pykgin.update()
 
     def refresh(self):
-        """ Retrieve all packages in one list. """
+       """Retrieve all packages in one list."""
         # all packages
         avail = self.pykgin.avail()
         # packages sorted by categories
@@ -54,15 +54,15 @@ class TonicModel(object):
                 pkg["desc"] = pkg_full["description"]
 
     def get_categories(self):
-        """ Return only categories name. """
+       """Return only categories name."""
         return self.packages.keys()
 
     def get_pkgs_from_cat(self, cat):
-        """ Return packages from one category. """
+       """Return packages from one category."""
         return self.packages[cat]
 
     def get_all_pkgs(self):
-        """ Return a list of all packages. """
+       """Return a list of all packages."""
         result = []
         for key in self.packages.keys():
             for pkg in self.packages[key]:

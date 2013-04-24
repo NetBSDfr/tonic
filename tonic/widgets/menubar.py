@@ -25,14 +25,14 @@
 # (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF
 # THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 
-""" Menubar view for Tonic. """
+"""Menubar view for Tonic."""
 
 import wx
 
 class TonicMenuBar(wx.MenuBar):
-    """ Tonic menubar. """
+   """Tonic menubar."""
     def __init__(self):
-        """ Constructor. """
+       """Constructor."""
         wx.MenuBar.__init__(self)
         
         self.file_menu = None
@@ -51,7 +51,7 @@ class TonicMenuBar(wx.MenuBar):
         self.__fill_menubar()
 
     def __create_menus(self):
-        """ Create all menus. """
+       """Create all menus."""
         # File menu
         self.file_menu = wx.Menu()
         self.open_menu = self.file_menu.Append(wx.ID_OPEN, "&Open",
@@ -79,7 +79,7 @@ class TonicMenuBar(wx.MenuBar):
                                    "&About"," Information about this program")
 
     def __fill_menubar(self):
-        """ Place menus in menubar. """
+       """Place menus in menubar."""
         self.Append(self.file_menu, "&File")
         self.Append(self.edit_menu, "&Edit")
         self.Append(self.settings_menu, "&Settings")

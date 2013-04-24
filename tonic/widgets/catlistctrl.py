@@ -25,21 +25,21 @@
 # (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF
 # THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 
-""" View for Tonic categories list. """
+"""View for Tonic categories list."""
 
 import wx
 
 from wx.lib.mixins.listctrl import ListCtrlAutoWidthMixin
 
 class TonicCatListCtrl(wx.ListCtrl, ListCtrlAutoWidthMixin):
-    """ Tonic categories list. """
+   """Tonic categories list."""
     def __init__(self, parent, style):
-        """ Constructor. """
+       """Constructor."""
         wx.ListCtrl.__init__(self, parent, style = style)
         ListCtrlAutoWidthMixin.__init__(self)
         self.__add_columns()
 
 
     def __add_columns(self):
-        """ Create columns. """
+       """Create columns."""
         self.InsertColumn(0, "Categories", width=150)

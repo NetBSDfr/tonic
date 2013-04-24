@@ -25,16 +25,16 @@
 # (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF
 # THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 
-""" Main Tonic view. """
+"""Main Tonic view."""
 
 import wx
 
 import widgets
 
 class TonicView(wx.Frame):
-    """ HMI for Tonic """
+   """HMI for Tonic"""
     def __init__(self, parent, title):
-        """ Constructor. """
+       """Constructor."""
         wx.Frame.__init__(self, parent, title=title,
                               pos=(-1, -1), size=(800,600))
         # Creating the categories list
@@ -84,12 +84,12 @@ class TonicView(wx.Frame):
         self.Show(True)
 
     def __set_layout_properties(self):
-        """ Set layout properties """
+       """Set layout properties"""
         self.list_category.SetMinSize((300, 460))
         self.search_box.SetMinSize((450, 25))
 
     def __do_layout(self):
-        """ Construct the layout """
+       """Construct the layout"""
         # main box.
         main_sizer = wx.BoxSizer(wx.VERTICAL)
         # The second box split in 2 horizontal box.

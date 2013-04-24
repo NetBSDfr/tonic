@@ -25,7 +25,7 @@
 # (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF
 # THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 
-""" Main script for Tonic. """
+"""Main script for Tonic."""
 
 try:
     import wx
@@ -35,7 +35,7 @@ except ImportError:
 from controller import TonicController
 
 def main():
-    """ Main function. """
+   """Main function."""
     app = wx.App(False)
     tonic = TonicController(app)
     app.MainLoop()
