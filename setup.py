@@ -1,3 +1,5 @@
+#!/bin/env python
+
 import os
 from setuptools import setup
 
@@ -10,8 +12,9 @@ setup(
     license = "BSD",
     keywords = "package manager gui pkgin tonic pkgsrc",
     url = "http://tonic.pkgin.net/",
-    packages = ['tonic', 'tonic/widgets'],
+    packages = ['tonic', 'tonic.widgets'],
     scripts = ["./tonic-client"],
+    install_requires = ["pykgin"],
     long_description = "Tonic is a GUI written with wxWidget to "\
                        "manage binary package from pkgsrc using "\
                        "pykgin as backend for pkgin",
