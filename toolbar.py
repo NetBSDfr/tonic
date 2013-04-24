@@ -6,7 +6,8 @@ class TonicToolBar(wx.ToolBar):
     """ Tonic toolbar. """
     def __init__(self, parent):
         """ Constructor. """
-        wx.ToolBar.__init__(self, parent)
+        wx.ToolBar.__init__(self, parent, 
+                            style=wx.TB_HORZ_TEXT)
 
         self.__create_icons()
         self.__fill_toolbar()
@@ -19,6 +20,8 @@ class TonicToolBar(wx.ToolBar):
                                             wx.ART_TOOLBAR, (16,16))
         self.undo_ico = wx.ArtProvider.GetBitmap(wx.ART_UNDO,
                                             wx.ART_TOOLBAR, (16,16))
+        self.apply_ico = wx.ArtProvider.GetBitmap(wx.ART_TICK_MARK,
+                                            wx.ART_TOOLBAR, (16,16))
 
     def __fill_toolbar(self):
         """ Insert elements in toolbar. """
@@ -26,4 +29,6 @@ class TonicToolBar(wx.ToolBar):
         self.AddSimpleTool(wx.ID_EXIT, self.exit_ico, "Exit", "")
         self.AddSeparator()
         self.AddSimpleTool(wx.ID_UNDO, self.undo_ico, "Unmark All", "")
-
+        self.AddSeparator()
+        self.AddSimpleTool(wx.ID_APPLY, self.apply_ico, "Install", "Install")
+        self.AddSeparator()
