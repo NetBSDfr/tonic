@@ -28,19 +28,16 @@
 """ Main Tonic view. """
 
 import wx
-from menubar import TonicMenuBar
-from toolbar import TonicToolBar
-from pkglistctrl import TonicPkgListCtrl
-from catlistctrl import TonicCatListCtrl
+import widgets
 
-class View(wx.Frame):
+class TonicView(wx.Frame):
     """ HMI for Tonic """
     def __init__(self, parent, title):
         """ Constructor. """
         wx.Frame.__init__(self, parent, title=title,
                               pos=(-1, -1), size=(800,600))
         # Creating the categories list
-        self.list_category = TonicCatListCtrl(self, 
+        self.list_category = widgets.TonicCatListCtrl(self, 
                                               style=wx.LC_REPORT|
                                                     wx.LC_NO_HEADER|
                                                     wx.LC_LIST|
@@ -50,7 +47,7 @@ class View(wx.Frame):
         self.search_box = wx.SearchCtrl(self, -1, "")
         
         # Creating the packages list
-        self.list_pkg = TonicPkgListCtrl(self,
+        self.list_pkg = widgets.TonicPkgListCtrl(self,
                                          style=wx.LC_REPORT|
                                                wx.SUNKEN_BORDER)
                                          
@@ -70,11 +67,11 @@ class View(wx.Frame):
         self.CreateStatusBar()
 
         # Creating the menubar
-        menubar = TonicMenuBar()
+        menubar = widgets.TonicMenuBar()
         self.SetMenuBar(menubar)
 
         # Creating the toolbar
-        toolbar = TonicToolBar(self)
+        toolbar = widgets.TonicToolBar(self)
         self.SetToolBar(toolbar)
         toolbar.Realize()
 

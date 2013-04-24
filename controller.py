@@ -28,15 +28,15 @@
 """ Controller for Tonic. """
 
 import wx
-from view import View
-from model import Model
+from view import TonicView
+from model import TonicModel
 
-class Controller(object):
+class TonicController(object):
     """ Tonic controller. """
     def __init__(self, app):
         """ Constructor. """
-        self.model = Model()
-        self.view = View(None, "Tonic")
+        self.model = TonicModel()
+        self.view = TonicView(None, "Tonic")
 
         # Set events
         self.view.Bind(wx.EVT_MENU, self.on_about,

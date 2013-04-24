@@ -29,7 +29,7 @@
 
 from pykgin import Pykgin
 
-class Model(object):
+class TonicModel(object):
     """ Model to manage packages. """
     def __init__(self):
         """ Constructor. """

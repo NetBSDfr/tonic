@@ -28,12 +28,12 @@
 """ Main script for Tonic. """
 
 import wx
-from controller import Controller
+from controller import TonicController
 
 def main():
     """ Main function. """
     app = wx.App(False)
-    tonic = Controller(app)
+    tonic = TonicController(app)
     app.MainLoop()
 
 if __name__ == '__main__':
