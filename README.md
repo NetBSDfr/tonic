@@ -31,3 +31,10 @@ THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT
 (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF
 THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 
+Internationalization
+====================
+
+mkdir -p tonic/locale/en/LC_MESSAGES
+cp tonic/local/en/LC_MESSAGES/tonic.pot tonic/loca/fr/LC_MESSAGES/
+poedit tonic/loca/fr/LC_MESSAGES/tonic.pot
+

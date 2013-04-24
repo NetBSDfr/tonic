@@ -3,7 +3,7 @@
 # Copyright (c) 2013 Guilaume Delpierre <gde@llew.me>
 # Copyright (c) 2013 Sylvain Mora <sylvain.mora@solevis.net>
 # All rights reserved.
-# 
+#
 # Redistribution and use in source and binary forms, with or without
 # modification, are permitted provided that the following conditions
 # are met:
@@ -13,7 +13,7 @@
 # 2. Redistributions in binary form must reproduce the above copyright
 # notice, this list of conditions and the following disclaimer in the
 # documentation and/or other materials provided with the distribution.
-# 
+#
 # THIS SOFTWARE IS PROVIDED BY THE AUTHOR(S) ``AS IS'' AND ANY EXPRESS OR
 # IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE IMPLIED WARRANTIES
 # OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE DISCLAIMED.
@@ -32,10 +32,23 @@ try:
 except ImportError:
     raise ImportError,"The wxPython module is required to run this program"
 
+import os, sys
+import gettext
 from controller import TonicController
 
+basepath = os.path.abspath(os.path.dirname(sys.argv[0]))
+localedir = os.path.join(basepath, "locale")
+# Default OS lang
+langid = wx.LANGUAGE_DEFAULT
+# Set locale for wxWidgets
+mylocale = wx.Locale(langid)
+# Set up Python's gettext
+mytranslation = gettext.translation("tonic", localedir,
+                                        [mylocale.GetCanonicalName()], fallback = True)
+mytranslation.install()
+
 def main():
-   """Main function."""
+    """Main function."""
     app = wx.App(False)
     tonic = TonicController(app)
     app.MainLoop()
