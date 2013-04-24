@@ -10,7 +10,7 @@ class Controller(object):
     """ Tonic controller. """
     def __init__(self, app):
         """ Constructor. """
-        #self.model = Model()
+        self.model = Model()
         self.view = View(None, "Tonic")
 
         # Set events
