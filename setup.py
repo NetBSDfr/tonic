@@ -4,7 +4,7 @@ import os
 from setuptools import setup
 
 setup(
-    name = "Tonic",
+    name = "tonic",
     version = "0.1-dev",
     author = ["Guillaume Delpierre", "Sylvain Mora"],
     author_email = ["gde@llew.me", "sylvain.mora@solevis.net"],
