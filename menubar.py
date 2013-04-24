@@ -1,5 +1,7 @@
 #!/usr/bin/env python
 
+""" Menubar view for Tonic. """
+
 import wx
 
 class TonicMenuBar(wx.MenuBar):
@@ -7,6 +9,18 @@ class TonicMenuBar(wx.MenuBar):
     def __init__(self):
         """ Constructor. """
         wx.MenuBar.__init__(self)
+        
+        self.file_menu = None
+        self.open_menu = None
+        self.exit_menu = None
+        self.edit_menu = None
+        self.unmark_all_menu = None
+        self.update_menu = None
+        self.apply_menu = None
+        self.settings_menu = None
+        self.repository_menu = None
+        self.help_menu = None
+        self.about_menu = None
 
         self.__create_menus()
         self.__fill_menubar()
@@ -14,33 +28,35 @@ class TonicMenuBar(wx.MenuBar):
     def __create_menus(self):
         """ Create all menus. """
         # File menu
-        self.filemenu = wx.Menu()
-        self.menuOpen = self.filemenu.Append(wx.ID_OPEN, "&Open",
+        self.file_menu = wx.Menu()
+        self.open_menu = self.file_menu.Append(wx.ID_OPEN, "&Open",
                                        " Open a file to edit")
-        self.menuExit = self.filemenu.Append(wx.ID_EXIT,
+        self.exit_menu = self.file_menu.Append(wx.ID_EXIT,
                                    "E&xit"," Terminate the program")
 
         # Edit menu
-        self.editmenu = wx.Menu()
-        self.menuUnmarkAll = self.editmenu.Append(wx.ID_UNDO, "&Unmark All", "")
-        self.editmenu.AppendSeparator()
-        self.menuUpdate = self.editmenu.Append(wx.ID_REFRESH, "&Update", "")
-        self.editmenu.AppendSeparator()
-        self.menuApply = self.editmenu.Append(wx.ID_APPLY, "&Apply", "")
+        self.edit_menu = wx.Menu()
+        self.unmark_all_menu = self.edit_menu.Append(wx.ID_UNDO, \
+                                                        "&Unmark All", "")
+        self.edit_menu.AppendSeparator()
+        self.update_menu = self.edit_menu.Append(wx.ID_REFRESH, "&Update", "")
+        self.edit_menu.AppendSeparator()
+        self.apply_menu = self.edit_menu.Append(wx.ID_APPLY, "&Apply", "")
 
         # Settings menu
-        self.settingsmenu = wx.Menu()
-        self.menuRepository = self.settingsmenu.Append(wx.NewId(), "&Repository", "")
+        self.settings_menu = wx.Menu()
+        self.repository_menu = self.settings_menu.Append(wx.NewId(), \
+                                                            "&Repository", "")
 
         # Help menu
-        self.helpmenu = wx.Menu()
-        self.menuAbout= self.helpmenu.Append(wx.ID_ABOUT,
+        self.help_menu = wx.Menu()
+        self.about_menu = self.help_menu.Append(wx.ID_ABOUT,
                                    "&About"," Information about this program")
 
     def __fill_menubar(self):
         """ Place menus in menubar. """
-        self.Append(self.filemenu, "&File")
-        self.Append(self.editmenu, "&Edit")
-        self.Append(self.settingsmenu, "&Settings")
-        self.Append(self.helpmenu, "&Help")
+        self.Append(self.file_menu, "&File")
+        self.Append(self.edit_menu, "&Edit")
+        self.Append(self.settings_menu, "&Settings")
+        self.Append(self.help_menu, "&Help")
 

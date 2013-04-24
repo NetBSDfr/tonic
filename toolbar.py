@@ -1,5 +1,7 @@
 #!/usr/bin/env python
 
+""" View for Tonic toolbar. """
+
 import wx
 
 class TonicToolBar(wx.ToolBar):
@@ -8,6 +10,11 @@ class TonicToolBar(wx.ToolBar):
         """ Constructor. """
         wx.ToolBar.__init__(self, parent, 
                             style=wx.TB_HORZ_TEXT)
+                            
+        self.open_ico = None
+        self.exit_ico = None
+        self.undo_ico = None
+        self.apply_ico = None
 
         self.__create_icons()
         self.__fill_toolbar()
