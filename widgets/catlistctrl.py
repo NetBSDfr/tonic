@@ -27,7 +27,11 @@
 
 """ View for Tonic categories list. """
 
-import wx
+try:
+    import wx
+except ImportError:
+    raise ImportError,"The wxPython module is required to run this program"
+
 from wx.lib.mixins.listctrl import ListCtrlAutoWidthMixin
 
 class TonicCatListCtrl(wx.ListCtrl, ListCtrlAutoWidthMixin):

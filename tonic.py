@@ -27,7 +27,11 @@
 
 """ Main script for Tonic. """
 
-import wx
+try:
+    import wx
+except ImportError:
+    raise ImportError,"The wxPython module is required to run this program"
+
 from controller import TonicController
 
 def main():
