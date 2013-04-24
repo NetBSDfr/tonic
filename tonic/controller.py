@@ -30,13 +30,13 @@
 import wx
 
 from view import TonicView
-#from model import TonicModel
+from model import TonicModel
 
 class TonicController(object):
     """Tonic controller."""
     def __init__(self, app):
         """Constructor."""
-        #self.model = TonicModel()
+        self.model = TonicModel()
         self.view = TonicView(None, _("tonic_title"))
 
         # Set events
@@ -46,10 +46,10 @@ class TonicController(object):
                        self.view.GetMenuBar().exit_menu)
 
         # retrieve packages
-        #self.model.refresh()
+        self.model.refresh()
         # populate each lists
-        #self.__populate_list_pkg()
-        #self.__populate_list_cat()
+        self.__populate_list_pkg()
+        self.__populate_list_cat()
 
     def on_about(self, event):
         """blabla some stuff about tonic"""
