@@ -1,11 +1,12 @@
-tonic
-=====
+What is Tonic
+=============
 
-pkgin GUI using pykgin.
+Tonic aims to provide a GUI for pkgin.
 
 License
 =======
 
+```
 Copyright (c) 2013 Guilaume Delpierre <gde@llew.me>
 Copyright (c) 2013 Sylvain Mora <sylvain.mora@solevis.net>
 All rights reserved.
@@ -30,11 +31,14 @@ DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER CAUSED AND ON ANY
 THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT
 (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF
 THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
+```
 
 Internationalization
 ====================
 
-mkdir -p tonic/locale/en/LC_MESSAGES
-cp tonic/local/en/LC_MESSAGES/tonic.pot tonic/loca/fr/LC_MESSAGES/
-poedit tonic/loca/fr/LC_MESSAGES/tonic.pot
+```bash
+mkdir -p tonic/locale/de/LC_MESSAGES
+cp tonic/locale/en/LC_MESSAGES/tonic.pot tonic/locale/de/LC_MESSAGES/
+poedit tonic/locale/de/LC_MESSAGES/tonic.pot
+```
 
