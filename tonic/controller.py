@@ -44,12 +44,30 @@ class TonicController(object):
                        self.view.GetMenuBar().about_menu)
         self.view.Bind(wx.EVT_MENU, self.on_exit,
                        self.view.GetMenuBar().exit_menu)
+        self.view.Bind(wx.EVT_MENU, self.on_import_file,
+                       self.view.GetMenuBar().open_menu)
 
         # retrieve packages
         #self.model.refresh()
         # populate each lists
         #self.__populate_list_pkg()
         #self.__populate_list_cat()
+
+    def on_import_file(self, event):
+        """ Open File dialog """
+            dlg = wx.FileDialog(self, 
+                                message="Choose a file",
+                            defaultDir=self.currentDirectory, 
+                                defaultFile="",
+                                wildcard=wildcard,
+                                style=wx.OPEN | wx.MULTIPLE | wx.CHANGE_DIR
+                                )
+            if dlg.ShowModal() == wx.ID_OK:
+                paths = dlg.GetPaths()
+                print "You chose the following file(s):"
+                for path in paths:
+                    print path
+            dlg.Destroy()
 
     def on_about(self, event):
         """blabla some stuff about tonic"""
