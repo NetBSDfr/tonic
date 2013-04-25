@@ -36,7 +36,8 @@ class TonicMenuBar(wx.MenuBar):
         wx.MenuBar.__init__(self)
 
         self.file_menu = None
-        self.open_menu = None
+        self.import_menu = None
+        self.export_menu = None
         self.exit_menu = None
         self.edit_menu = None
         self.unmark_all_menu = None
@@ -54,8 +55,10 @@ class TonicMenuBar(wx.MenuBar):
         """Create all menus."""
         # File menu
         self.file_menu = wx.Menu()
-        self.open_menu = self.file_menu.Append(wx.ID_OPEN, _("open_menu"), \
-                                               _("open_menu_tooltip"))
+        self.import_menu = self.file_menu.Append(wx.ID_OPEN, _("import_menu"), \
+                                               _("import_menu_tooltip"))
+        self.export_menu = self.file_menu.Append(wx.ID_SAVE, _("export_menu"), \
+                                               _("export_menu_tooltip"))
         self.exit_menu = self.file_menu.Append(wx.ID_EXIT, \
                                                _("exit_menu"),_("exit_menu_tooltip"))
 
