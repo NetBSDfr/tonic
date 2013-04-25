@@ -55,34 +55,53 @@ class TonicMenuBar(wx.MenuBar):
         """Create all menus."""
         # File menu
         self.file_menu = wx.Menu()
-        self.import_menu = self.file_menu.Append(wx.ID_OPEN, _("import_menu"), \
-                                               _("import_menu_tooltip"))
-        self.export_menu = self.file_menu.Append(wx.ID_SAVE, _("export_menu"), \
-                                               _("export_menu_tooltip"))
+        self.import_menu = self.file_menu.Append(wx.ID_OPEN, \
+                                                 _("import_menu"), \
+                                                 _("import_menu_tooltip"))
+        self.export_menu = self.file_menu.Append(wx.ID_SAVE, \
+                                                 _("export_menu"), \
+                                                 _("export_menu_tooltip"))
+        self.file_menu.AppendSeparator()
         self.exit_menu = self.file_menu.Append(wx.ID_EXIT, \
-                                               _("exit_menu"),_("exit_menu_tooltip"))
+                                               _("exit_menu"),\
+                                               _("exit_menu_tooltip"))
 
         # Edit menu
         self.edit_menu = wx.Menu()
-        self.unmark_all_menu = self.edit_menu.Append(wx.ID_UNDO, \
+        self.undo_menu = self.edit_menu.Append(wx.ID_UNDO, \
+                                                     _("undo_menu"), \
+                                                     _("undo_menu_tooltip"))
+        self.redo_menu = self.edit_menu.Append(wx.ID_REDO, \
+                                                     _("redo_menu"), \
+                                                     _("redo_menu_tooltip"))
+        self.unmark_all_menu = self.edit_menu.Append(wx.ID_NEW, \
                                                      _("unmark_all_menu"), \
                                                      _("unmark_all_menu_tooltip"))
         self.edit_menu.AppendSeparator()
-        self.update_menu = self.edit_menu.Append(wx.ID_REFRESH, _("update_menu"), \
-                                                    _("update_menu_tooltip"))
+        self.update_menu = self.edit_menu.Append(wx.ID_REFRESH, \
+                                                 _("update_menu"), \
+                                                 _("update_menu_tooltip"))
+        self.upgrade_menu = self.edit_menu.Append(wx.ID_NEW, \
+                                                  _("upgrade_menu"), \
+                                                  _("upgrade_menu_tooltip"))
         self.edit_menu.AppendSeparator()
-        self.apply_menu = self.edit_menu.Append(wx.ID_APPLY, _("apply_menu"), \
-                                                    _("apply_menu_tooltip"))
+        self.apply_menu = self.edit_menu.Append(wx.ID_APPLY, \
+                                                _("apply_menu"), \
+                                                _("apply_menu_tooltip"))
 
         # Settings menu
         self.settings_menu = wx.Menu()
-        self.repository_menu = self.settings_menu.Append(wx.NewId(), \
-                                                         _("repository_menu"), \
-                                                         _("repository_menu_tooltip"))
+        self.pref_menu = self.settings_menu.Append(wx.ID_NEW,\
+                                                   _("pref_menu"),\
+                                                   _("pref_menu_tooltip"))
+        self.repo_menu = self.settings_menu.Append(wx.ID_NEW, \
+                                                   _("repo_menu"), \
+                                                   _("repo_menu_tooltip"))
 
         # Help menu
         self.help_menu = wx.Menu()
-        self.about_menu = self.help_menu.Append(wx.ID_ABOUT, ("about_menu"), \
+        self.about_menu = self.help_menu.Append(wx.ID_ABOUT,\
+                                                _("about_menu"), \
                                                 _("about_menu_tooltip"))
 
     def __fill_menubar(self):

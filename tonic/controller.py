@@ -90,7 +90,7 @@ class TonicController(object):
                            style=wx.FD_SAVE)
         if dlg.ShowModal() == wx.ID_OK:
            path = dlg.GetPath()
-           print "You chose the following filename: %s" % path"
+           print "You chose the following filename: %s" % path
         dlg.Destroy()
 
     def on_about(self, event):
