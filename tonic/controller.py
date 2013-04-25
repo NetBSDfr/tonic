@@ -80,7 +80,7 @@ class TonicController(object):
                 print path
         dlg.Destroy()
 
-   def on_export_file(self, event):
+    def on_export_file(self, event):
         """ Save file dialog """
         dlg = wx.FileDialog(self.view,
                            message="Save file as ...",
