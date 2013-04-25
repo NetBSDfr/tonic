@@ -27,10 +27,16 @@
 
 """Controller for Tonic."""
 
+import os
+
 import wx
 
 from view import TonicView
 from model import TonicModel
+
+wildcard = "Tonic files (*.tonic)|*.tonic | "\
+           "Conf files (*.conf)|*.conf |"\
+           "All files (*.*)|*.*"
 
 class TonicController(object):
     """Tonic controller."""
@@ -44,12 +50,48 @@ class TonicController(object):
                        self.view.GetMenuBar().about_menu)
         self.view.Bind(wx.EVT_MENU, self.on_exit,
                        self.view.GetMenuBar().exit_menu)
+        self.view.Bind(wx.EVT_MENU, self.on_import_file,
+                       self.view.GetMenuBar().import_menu)
+        self.view.Bind(wx.EVT_MENU, self.on_export_file,
+                       self.view.GetMenuBar().export_menu)
 
         # retrieve packages
         self.model.refresh()
         # populate each lists
         self.__populate_list_pkg()
         self.__populate_list_cat()
+
+        self.current_directory = os.getcwd()
+    
+    def on_import_file(self, event):
+        """ Open File dialog """
+        dlg = wx.FileDialog(self.view, 
+                            message="Choose a file",
+                            defaultDir=self.current_directory, 
+                            defaultFile="",
+                            wildcard=wildcard,
+                            style=wx.FD_OPEN |\
+                            wx.FD_MULTIPLE |\
+                            wx.FD_CHANGE_DIR)
+        if dlg.ShowModal() == wx.ID_OK:
+            paths = dlg.GetPaths()
+            print "You chose the following file(s):"
+            for path in paths:
+                print path
+        dlg.Destroy()
+
+   def on_export_file(self, event):
+        """ Save file dialog """
+        dlg = wx.FileDialog(self.view,
+                           message="Save file as ...",
+                           defaultDir=self.current_directory,
+                           defaultFile="",
+                           wildcard=wildcard,
+                           style=wx.FD_SAVE)
+        if dlg.ShowModal() == wx.ID_OK:
+           path = dlg.GetPath()
+           print "You chose the following filename: %s" % path
+        dlg.Destroy()
 
     def on_about(self, event):
         """blabla some stuff about tonic"""
