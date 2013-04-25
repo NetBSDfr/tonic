@@ -74,14 +74,14 @@ class TonicMenuBar(wx.MenuBar):
         self.redo_menu = self.edit_menu.Append(wx.ID_REDO, \
                                                      _("redo_menu"), \
                                                      _("redo_menu_tooltip"))
-        self.unmark_all_menu = self.edit_menu.Append(wx.ID_NEW, \
+        self.unmark_all_menu = self.edit_menu.Append(wx.ID_ANY, \
                                                      _("unmark_all_menu"), \
                                                      _("unmark_all_menu_tooltip"))
         self.edit_menu.AppendSeparator()
         self.update_menu = self.edit_menu.Append(wx.ID_REFRESH, \
                                                  _("update_menu"), \
                                                  _("update_menu_tooltip"))
-        self.upgrade_menu = self.edit_menu.Append(wx.ID_NEW, \
+        self.upgrade_menu = self.edit_menu.Append(wx.ID_ANY, \
                                                   _("upgrade_menu"), \
                                                   _("upgrade_menu_tooltip"))
         self.edit_menu.AppendSeparator()
@@ -91,10 +91,10 @@ class TonicMenuBar(wx.MenuBar):
 
         # Settings menu
         self.settings_menu = wx.Menu()
-        self.pref_menu = self.settings_menu.Append(wx.ID_NEW,\
+        self.pref_menu = self.settings_menu.Append(wx.ID_ANY,\
                                                    _("pref_menu"),\
                                                    _("pref_menu_tooltip"))
-        self.repo_menu = self.settings_menu.Append(wx.ID_NEW, \
+        self.repo_menu = self.settings_menu.Append(wx.ID_ANY, \
                                                    _("repo_menu"), \
                                                    _("repo_menu_tooltip"))
 
