@@ -27,6 +27,8 @@
 
 """Events handler for TonicPkgListCtrl."""
 
+import wx
+
 class TonicPkgListCtrlEvents(object):
     """Provide callbacks for TonicPkgListCtrl."""
     def __init__(self, view, model):
@@ -41,8 +43,23 @@ class TonicPkgListCtrlEvents(object):
                 self.view.list_pkg.SetItemBackgroundColour(index, "white")
                 self.model.unremove_pkg(pkg)
             else:
-                self.view.list_pkg.SetItemBackgroundColour(index, "green")
-                self.model.mark_pkg(pkg)
+                deps = self.model.get_deps(pkg)
+                if deps:
+                    dlg = wx.SingleChoiceDialog(self.view, _("deps_dialog_title"), \
+                                                    _("deps_dialog_caption"), \
+                                                    deps, \
+                                                    wx.CHOICEDLG_STYLE
+                                                )
+                    if dlg.ShowModal() == wx.ID_OK:
+                        deps.append(pkg)
+                        self.model.mark_pkgs(deps)
+                        self.view.list_pkg.SetItemBackgroundColour(index, "green")
+                    else:
+                        self.view.list_pkg.CheckItem(index, False)
+                    dlg.Destroy()
+                else:
+                    self.view.list_pkg.SetItemBackgroundColour(index, "green")
+                    self.model.mark_pkg(pkg)
         # Unchecked
         else:
             if pkg in self.model.installed_pkgs:

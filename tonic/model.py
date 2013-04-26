@@ -73,6 +73,10 @@ class TonicModel(object):
         if not pkg in self.marked_pkgs:
             self.marked_pkgs.append(pkg)
 
+    def mark_pkgs(self, pkgs):
+        """Add several pkgs in marked list."""
+        self.marked_pkgs.extend(pkgs)
+
     def unmark_pkg(self, pkg):
         """Remove a pkg in marked list for future install."""
         if pkg in self.marked_pkgs:
@@ -87,4 +91,9 @@ class TonicModel(object):
         """Remove a pkg in remove list for future uninstall."""
         if pkg in self.remove_pkgs:
             self.remove_pkgs.remove(pkg)
+
+    def get_deps(self, pkg):
+        """Return a list of package dependencies."""
+        deps = self.pykgin.show_full_deps(pkg)
+        return [item["name"] for item in deps]
 
