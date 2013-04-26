@@ -57,6 +57,7 @@ class TonicPkgListCtrl(wx.ListCtrl, CheckListCtrlMixin, ListCtrlAutoWidthMixin, 
         """Populate the package list."""
         # safety clear the list
         self.DeleteAllItems()
+        self.itemDataMap.clear()
         index = 0
         for pkg in pkgs:
             # insert a new row
@@ -71,6 +72,21 @@ class TonicPkgListCtrl(wx.ListCtrl, CheckListCtrlMixin, ListCtrlAutoWidthMixin, 
             # store content for future storing
             self.itemDataMap[index] = (pkg["name"], pkg["version"], pkg["description"])
             index += 1
+
+    def refresh(self, marked, remove):
+        """Refresh current content."""
+        # safety clear the list
+        self.DeleteAllItems()
+        for key,value in self.itemDataMap.items():
+            # insert a new row
+            pos = self.InsertStringItem(0, value[0])
+            if value[0] in remove:
+                self.SetItemBackgroundColour(pos, "red")
+            elif value[0] in marked:
+                self.CheckItem(pos, True)
+            self.SetStringItem(pos, 1, value[1])
+            self.SetStringItem(pos, 2, value[2])
+            self.SetItemData(pos, key)
 
     def get_package_name(self, index):
         return self.GetItem(index, 0).GetText()

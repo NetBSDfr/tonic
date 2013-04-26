@@ -42,31 +42,46 @@ class TonicPkgListCtrlEvents(object):
             if pkg in self.model.installed_pkgs:
                 self.view.list_pkg.SetItemBackgroundColour(index, "white")
                 self.model.unremove_pkg(pkg)
-            else:
+            elif not pkg in self.model.get_all_marked_pkgs():
                 deps = self.model.get_deps(pkg)
-                if deps:
+                if deps and not pkg in self.model.marked_pkgs.keys():
                     dlg = wx.SingleChoiceDialog(self.view, _("deps_dialog_title"), \
-                                                    _("deps_dialog_caption"), \
+                                                    _("deps_add_dialog_caption"), \
                                                     deps, \
                                                     wx.CHOICEDLG_STYLE
                                                 )
                     if dlg.ShowModal() == wx.ID_OK:
-                        deps.append(pkg)
-                        self.model.mark_pkgs(deps)
-                        self.view.list_pkg.SetItemBackgroundColour(index, "green")
+                        self.model.mark_pkgs(pkg, deps)
+                        self.view.list_pkg.refresh(self.model.get_all_marked_pkgs(), self.model.remove_pkgs)
                     else:
                         self.view.list_pkg.CheckItem(index, False)
                     dlg.Destroy()
                 else:
                     self.view.list_pkg.SetItemBackgroundColour(index, "green")
                     self.model.mark_pkg(pkg)
+            else:
+                self.view.list_pkg.SetItemBackgroundColour(index, "green")
         # Unchecked
         else:
             if pkg in self.model.installed_pkgs:
                 self.view.list_pkg.SetItemBackgroundColour(index, "red")
                 self.model.remove_pkg(pkg)
-            elif pkg in self.model.marked_pkgs:
-                self.view.list_pkg.SetItemBackgroundColour(index, "white")
-                self.model.unmark_pkg(pkg)
+            elif pkg in self.model.marked_pkgs.keys():
+                deps = self.model.marked_pkgs[pkg]
 
+                if len(deps) != 0:
+                    dlg = wx.SingleChoiceDialog(self.view, _("deps_dialog_title"), \
+                                                    _("deps_remove_dialog_caption"), \
+                                                    deps, \
+                                                    wx.CHOICEDLG_STYLE
+                                                )
+                    if dlg.ShowModal() == wx.ID_OK:
+                        self.model.unmark_pkg(pkg)
+                        self.view.list_pkg.refresh(self.model.get_all_marked_pkgs(), self.model.remove_pkgs)
+                    else:
+                        self.view.list_pkg.CheckItem(index, True)
+                    dlg.Destroy()
+                else:
+                    self.model.unmark_pkg(pkg)
+                    self.view.list_pkg.SetItemBackgroundColour(index, "white")
 

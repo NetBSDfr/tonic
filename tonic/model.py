@@ -43,7 +43,7 @@ class TonicModel(object):
         """Constructor."""
         self.pykgin = Pykgin()
         self.installed_pkgs = []
-        self.marked_pkgs = []
+        self.marked_pkgs = {}
         self.remove_pkgs = []
 
         self.__init_marked_pkgs()
@@ -53,8 +53,7 @@ class TonicModel(object):
         pkg_list = self.pykgin.list()
         for pkg in pkg_list:
             self.installed_pkgs.append(pkg["name"])
-
-        self.marked_pkgs = list(self.installed_pkgs)
+            self.marked_pkgs[pkg["name"]] = []
 
     def get_categories(self):
         """Return only categories name."""
@@ -70,17 +69,17 @@ class TonicModel(object):
 
     def mark_pkg(self, pkg):
         """Add a pkg in marked list for future install."""
-        if not pkg in self.marked_pkgs:
-            self.marked_pkgs.append(pkg)
+        if not pkg in self.marked_pkgs.keys():
+            self.marked_pkgs[pkg] = []
 
-    def mark_pkgs(self, pkgs):
+    def mark_pkgs(self, pkg, deps):
         """Add several pkgs in marked list."""
-        self.marked_pkgs.extend(pkgs)
+        self.marked_pkgs[pkg] = deps
 
     def unmark_pkg(self, pkg):
         """Remove a pkg in marked list for future install."""
-        if pkg in self.marked_pkgs:
-            self.marked_pkgs.remove(pkg)
+        if pkg in self.marked_pkgs.keys():
+            self.marked_pkgs.pop(pkg)
 
     def remove_pkg(self, pkg):
         """Add a pkg in remove list for future uninstall."""
@@ -97,3 +96,10 @@ class TonicModel(object):
         deps = self.pykgin.show_full_deps(pkg)
         return [item["name"] for item in deps]
 
+    def get_all_marked_pkgs(self):
+        """Return a single list of all marked packages."""
+        result = self.marked_pkgs.keys()
+        for pkg in self.marked_pkgs.values():
+            result.extend(pkg)
+
+        return result
