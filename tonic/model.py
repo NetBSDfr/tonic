@@ -103,3 +103,11 @@ class TonicModel(object):
             result.extend(pkg)
 
         return result
+
+    def search_in_deps(self, pkg):
+        """Search if the pkg is a dependency. Return the main pkg"""
+        for main,pkgs in self.marked_pkgs.items():
+            if pkg in pkgs:
+                return main
+
+        return None

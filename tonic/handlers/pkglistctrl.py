@@ -63,12 +63,15 @@ class TonicPkgListCtrlEvents(object):
                 self.view.list_pkg.SetItemBackgroundColour(index, "green")
         # Unchecked
         else:
+            # Package already installed on the system
             if pkg in self.model.installed_pkgs:
                 self.view.list_pkg.SetItemBackgroundColour(index, "red")
                 self.model.remove_pkg(pkg)
+            # Main package check
             elif pkg in self.model.marked_pkgs.keys():
                 deps = self.model.marked_pkgs[pkg]
 
+                # Uncheck all dependencies
                 if len(deps) != 0:
                     dlg = wx.SingleChoiceDialog(self.view, _("deps_dialog_title"), \
                                                     _("deps_remove_dialog_caption"), \
@@ -84,4 +87,23 @@ class TonicPkgListCtrlEvents(object):
                 else:
                     self.model.unmark_pkg(pkg)
                     self.view.list_pkg.SetItemBackgroundColour(index, "white")
+            # Dependency of another package checked
+            else:
+                main_pkg = self.model.search_in_deps(pkg)
+                deps = self.model.marked_pkgs[main_pkg]
+                deps.append(main_pkg)
+                deps.remove(pkg)
+
+                # Uncheck all dependencies
+                dlg = wx.SingleChoiceDialog(self.view, _("deps_dialog_title"), \
+                                                _("deps_remove_dialog_caption"), \
+                                                deps, \
+                                                wx.CHOICEDLG_STYLE
+                                            )
+                if dlg.ShowModal() == wx.ID_OK:
+                    self.model.unmark_pkg(main_pkg)
+                    self.view.list_pkg.refresh(self.model.get_all_marked_pkgs(), self.model.remove_pkgs)
+                else:
+                    self.view.list_pkg.CheckItem(index, True)
+                dlg.Destroy()
 

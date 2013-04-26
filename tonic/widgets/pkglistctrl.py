@@ -73,7 +73,7 @@ class TonicPkgListCtrl(wx.ListCtrl, CheckListCtrlMixin, ListCtrlAutoWidthMixin, 
             self.itemDataMap[index] = (pkg["name"], pkg["version"], pkg["description"])
             index += 1
 
-    def refresh(self, marked, remove):
+    def refresh(self, marked, remove, selected=0):
         """Refresh current content."""
         # safety clear the list
         self.DeleteAllItems()
