@@ -57,13 +57,25 @@ class TonicView(wx.Frame):
         self.description_tab = wx.Notebook(self, -1, style=wx.NB_BOTTOM)
         self.description_tab_desc = wx.Panel(self.description_tab, -1,
                                              style=wx.SUNKEN_BORDER|
-                                             wx.TAB_TRAVERSAL)
+                                                   wx.TAB_TRAVERSAL)
         self.description_tab_dep = wx.Panel(self.description_tab, -1,
                                             style=wx.SUNKEN_BORDER|
-                                            wx.TAB_TRAVERSAL)
+                                                  wx.TAB_TRAVERSAL)
         self.description_tab_chg = wx.Panel(self.description_tab, -1,
                                             style=wx.SUNKEN_BORDER|
-                                            wx.TAB_TRAVERSAL)
+                                                 wx.TAB_TRAVERSAL)
+        self.text_tab_desc = wx.TextCtrl(self.description_tab_desc, -1, "",\
+                                         style=wx.TE_MULTILINE|\
+                                               wx.TE_READONLY|\
+                                               wx.HSCROLL)
+        self.text_tab_dep = wx.TextCtrl(self.description_tab_dep, -1, "",\
+                                         style=wx.TE_MULTILINE|\
+                                               wx.TE_READONLY|\
+                                               wx.HSCROLL)
+        self.text_tab_chg = wx.TextCtrl(self.description_tab_chg, -1, "",\
+                                         style=wx.TE_MULTILINE|\
+                                               wx.TE_READONLY|\
+                                               wx.HSCROLL)
 
         # Creating the statusbar
         self.CreateStatusBar()
@@ -110,8 +122,22 @@ class TonicView(wx.Frame):
         h_sizer.Add(self.list_category, 0, wx.ALL | wx.EXPAND, 2)
         v_sizer.Add(self.search_box, 0, wx.ALL | wx.EXPAND, 2)
         v_sizer.Add(self.list_pkg, 1, wx.ALL | wx.EXPAND, 2)
-        v_sizer.Add(self.description_tab, 1, wx.EXPAND, 0)
+        v_sizer.Add(self.description_tab, 1, wx.ALL | wx.EXPAND, 2)
         h_sizer.Add(v_sizer, 1, wx.EXPAND, 0)
+
+        # add text into notebook
+        tab_desc_sizer = wx.BoxSizer(wx.VERTICAL)
+        tab_desc_sizer.Add(self.text_tab_desc, 1, wx.EXPAND, 0)
+
+        tab_dep_sizer = wx.BoxSizer(wx.VERTICAL)
+        tab_dep_sizer.Add(self.text_tab_dep, 1, wx.EXPAND, 0)
+
+        tab_chg_sizer = wx.BoxSizer(wx.VERTICAL)
+        tab_chg_sizer.Add(self.text_tab_chg, 1, wx.EXPAND, 0)
+
+        self.description_tab_desc.SetSizer(tab_desc_sizer)
+        self.description_tab_dep.SetSizer(tab_dep_sizer)
+        self.description_tab_chg.SetSizer(tab_chg_sizer)
 
         # mainbox container
         main_sizer.Add(h_sizer, 1, wx.ALL | wx.EXPAND, 4)
