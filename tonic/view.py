@@ -67,14 +67,17 @@ class TonicView(wx.Frame):
         self.text_tab_desc = wx.TextCtrl(self.description_tab_desc, -1, "",\
                                          style=wx.TE_MULTILINE|\
                                                wx.TE_READONLY|\
+                                               wx.NO_BORDER|\
                                                wx.HSCROLL)
         self.text_tab_dep = wx.TextCtrl(self.description_tab_dep, -1, "",\
                                          style=wx.TE_MULTILINE|\
                                                wx.TE_READONLY|\
+                                               wx.NO_BORDER|\
                                                wx.HSCROLL)
         self.text_tab_chg = wx.TextCtrl(self.description_tab_chg, -1, "",\
                                          style=wx.TE_MULTILINE|\
                                                wx.TE_READONLY|\
+                                               wx.NO_BORDER|\
                                                wx.HSCROLL)
 
         # Creating the statusbar
