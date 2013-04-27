@@ -51,13 +51,6 @@ class TonicController(object):
         self.__populate_list_pkg()
         self.__populate_list_cat()
 
-    def on_about(self, event):
-        """blabla some stuff about tonic"""
-        dial_about = wx.MessageDialog(self, _("tonic_about_msg"),
-                                      "About", wx.OK)
-        dial_about.ShowModal()
-        dial_about.Destroy()
-
     def on_exit(self, event):
         """action on exit"""
         self.view.Close(True)
