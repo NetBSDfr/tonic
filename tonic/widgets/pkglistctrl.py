@@ -70,7 +70,8 @@ class TonicPkgListCtrl(wx.ListCtrl, CheckListCtrlMixin, ListCtrlAutoWidthMixin, 
             self.SetStringItem(pos, 2, pkg["description"])
             self.SetItemData(pos, index)
             # store content for future storing
-            self.itemDataMap[index] = (pkg["name"], pkg["version"], pkg["description"])
+            self.itemDataMap[index] = (pkg["name"], pkg["version"], \
+                                       pkg["description"])
             index += 1
 
     def refresh(self, marked, remove, selected=0):
