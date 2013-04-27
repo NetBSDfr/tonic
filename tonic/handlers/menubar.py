@@ -30,7 +30,7 @@
 import wx
 import os
 
-WILDCARD = "Tonic files (*.tonic)|*.tonic | "\
+WILDCARD = "Tonic files (*.tonic)|*.tonic |"\
            "Conf files (*.conf)|*.conf |"\
            "All files (*.*)|*.*"
 

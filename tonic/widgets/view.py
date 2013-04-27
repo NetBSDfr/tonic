@@ -98,7 +98,7 @@ class TonicView(wx.Frame):
     def __set_layout_properties(self):
         """Set layout properties"""
         self.list_category.SetMinSize((300, 460))
-        self.search_box.SetMinSize((450, 25))
+#        self.search_box.SetMinSize((450, 25))
 
     def __do_layout(self):
         """Construct the layout"""
@@ -130,7 +130,7 @@ class TonicView(wx.Frame):
 
         # Adding items
         h_sizer.Add(self.list_category, 0, wx.ALL | wx.EXPAND, 2)
-        v_sizer.Add(self.search_box, 0, wx.ALL | wx.EXPAND, 2)
+        v_sizer.Add(self.search_box, 0, wx.ALL | wx.SHAPED, 2)
         v_sizer.Add(self.list_pkg, 1, wx.ALL | wx.EXPAND, 2)
         v_sizer.Add(self.description_tab, 1, wx.EXPAND, 0)
         h_sizer.Add(v_sizer, 1, wx.EXPAND, 0)
