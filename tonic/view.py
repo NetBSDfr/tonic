@@ -146,5 +146,6 @@ class TonicView(wx.Frame):
         main_sizer.Add(h_sizer, 1, wx.ALL | wx.EXPAND, 4)
 
         self.SetSizer(main_sizer)
+        main_sizer.SetSizeHints(self)
         self.Layout()
         self.Centre()
