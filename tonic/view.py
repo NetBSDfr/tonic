@@ -101,7 +101,7 @@ class TonicView(wx.Frame):
 
     def __set_layout_properties(self):
         """Set layout properties"""
-        self.list_category.SetMinSize((300, 460))
+        self.list_category.SetMinSize((150, 460))
         self.search_box.SetMinSize((450, 25))
 
     def __do_layout(self):
