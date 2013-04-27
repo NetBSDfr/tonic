@@ -34,8 +34,9 @@ class TonicView(wx.Frame):
     """HMI for Tonic"""
     def __init__(self, parent, title):
         """Constructor."""
-        wx.Frame.__init__(self, parent, title=title,
-                          pos=(-1, -1), size=(800,600))
+        wx.Frame.__init__(self, parent, title=title,\
+                          pos=(-1, -1), size=(800,600),\
+                          style=wx.DEFAULT_FRAME_STYLE | wx.RESIZE_BORDER)
         # Creating the categories list
         self.list_category = widgets.TonicCatListCtrl(self,
                                                       style=wx.LC_REPORT|
