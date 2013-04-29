@@ -42,3 +42,25 @@ class TonicNotebookEvents(object):
         pkg_desc = self.model.get_desc(pkg)
         self.view.text_tab_desc.SetValue(pkg_desc)
 
+    def on_content_click(self, event):
+        """Show package content."""
+        pkg_id = self.view.list_pkg.GetFirstSelected()
+        pkg = self.view.list_pkg.GetItem(pkg_id).GetText()
+        pkg_content = "\n".join(self.model.get_content(pkg))
+        self.view.text_tab_cont.SetValue(pkg_content)
+
+    def on_bconf_click(self, event):
+        """Show build infos."""
+        pkg_id = self.view.list_pkg.GetFirstSelected()
+        pkg = self.view.list_pkg.GetItem(pkg_id).GetText()
+        pkg_bconf = self.model.get_build_infos(pkg)
+        content = ""
+        for info in pkg_bconf.keys():
+            content += info
+            content += ' =\n'
+            for value in pkg_bconf[info]:
+                content += '\t'
+                content += value
+                content += '\n'
+        self.view.text_tab_bconf.SetValue(content)
+

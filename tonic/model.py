@@ -121,3 +121,13 @@ class TonicModel(object):
         """Retrieve the full-desc of the package."""
         desc = self.pykgin.pkg_descr(pkg)
         return desc
+
+    def get_content(self, pkg):
+        """Retrieve the contents of the package."""
+        content = self.pykgin.pkg_content(pkg)
+        return content
+
+    def get_build_infos(self, pkg):
+        """Retrieve build infos of the package."""
+        infos = self.pykgin.pkg_build_defs(pkg)
+        return infos
