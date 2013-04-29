@@ -65,3 +65,7 @@ class TonicController(object):
         self.view.Bind(wx.EVT_LIST_ITEM_SELECTED, pkg_list_evt.on_item_selected, \
                        self.view.list_pkg)
 
+        # Notebook
+        notebook_evt = handlers.TonicNotebookEvents(self.view, self.model)
+        self.view.Bind(wx.EVT_BUTTON, notebook_evt.on_long_desc_click, \
+                       self.view.button_desc)

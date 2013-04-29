@@ -28,3 +28,4 @@
 from catlistctrl import TonicCatListCtrlEvents
 from pkglistctrl import TonicPkgListCtrlEvents
 from menubar import TonicMenuBarEvents
+from notebook import TonicNotebookEvents

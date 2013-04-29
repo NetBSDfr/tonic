@@ -25,43 +25,20 @@
 # (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF
 # THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 
-"""Model for Tonic."""
+"""Events handler for TonicNotebook."""
 
-from pykgin import Pykgin
+import wx
 
-class TonicModel(object):
-    """Model to manage packages."""
-    def __init__(self):
-        """Constructor."""
-        self.pykgin = Pykgin()
-        self.packages = None
+class TonicNotebookEvents(object):
+    """Provide callbacks for TonicNotebook."""
+    def __init__(self, view, model):
+        self.view = view
+        self.model = model
 
-    def update(self):
-        """Update pkgin."""
-        self.pykgin.update()
+    def on_long_desc_click(self, event):
+        """Show long desc."""
+        pkg_id = self.view.list_pkg.GetFirstSelected()
+        pkg = self.view.list_pkg.GetItem(pkg_id).GetText()
+        pkg_desc = self.model.get_desc(pkg)
+        self.view.text_tab_desc.SetValue(pkg_desc)
 
-    def refresh(self):
-        """Retrieve all packages in one list."""
-        # packages sorted by categories
-        self.packages = self.pykgin.avail_categories()
-
-    def get_categories(self):
-        """Return only categories name."""
-        return self.packages.keys()
-
-    def get_packages(self):
-        """Return packages."""
-        return self.packages
-
-    def get_pkgs_from_cat(self, cat):
-        """Return packages from one category."""
-        return self.packages[cat]
-
-    def get_all_pkgs(self):
-        """Return a list of all packages."""
-        result = []
-        for key in self.packages.keys():
-            for value in self.packages[key]:
-                result.append(value)
-
-        return result

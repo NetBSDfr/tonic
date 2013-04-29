@@ -37,7 +37,7 @@ class TonicPkgListCtrlEvents(object):
 
     def on_item_selected(self, event):
         pkg = event.GetText()
-        pkg_desc = self.model.get_desc(pkg)
+        pkg_desc = self.view.list_pkg.GetItem(event.GetIndex(), 2).GetText()
         pkg_deps = self.model.get_deps_raw(pkg)
         pkg_changes = ""
 
