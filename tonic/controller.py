@@ -62,4 +62,6 @@ class TonicController(object):
         # Packages list
         pkg_list_evt =  handlers.TonicPkgListCtrlEvents(self.view, self.model)
         self.view.list_pkg.OnCheckItem = pkg_list_evt.on_check_item
+        self.view.Bind(wx.EVT_LIST_ITEM_SELECTED, pkg_list_evt.on_item_selected, \
+                       self.view.list_pkg)
 

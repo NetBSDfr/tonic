@@ -91,10 +91,15 @@ class TonicModel(object):
         if pkg in self.remove_pkgs:
             self.remove_pkgs.remove(pkg)
 
-    def get_deps(self, pkg):
-        """Return a list of package dependencies."""
+    def get_deps_name(self, pkg):
+        """Return a list of package's name dependencies."""
         deps = self.pykgin.show_full_deps(pkg)
         return [item["name"] for item in deps]
+
+    def get_deps_raw(self, pkg):
+        """Return a list of package dependencies."""
+        deps = self.pykgin.show_full_deps_raw(pkg)
+        return deps
 
     def get_all_marked_pkgs(self):
         """Return a single list of all marked packages."""
@@ -111,3 +116,8 @@ class TonicModel(object):
                 return main
 
         return None
+
+    def get_desc(self, pkg):
+        """Retrieve the full-desc of the package."""
+        desc = self.pykgin.pkg_descr(pkg)
+        return desc

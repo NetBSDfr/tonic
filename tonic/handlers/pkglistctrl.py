@@ -35,6 +35,16 @@ class TonicPkgListCtrlEvents(object):
         self.view = view
         self.model = model
 
+    def on_item_selected(self, event):
+        pkg = event.GetText()
+        pkg_desc = self.model.get_desc(pkg)
+        pkg_deps = self.model.get_deps_raw(pkg)
+        pkg_changes = ""
+
+        self.view.text_tab_desc.SetValue(pkg_desc)
+        self.view.text_tab_dep.SetValue(pkg_deps)
+        self.view.text_tab_chg.SetValue(pkg_changes)
+
     def on_check_item(self, index, flag):
         pkg = self.view.list_pkg.get_package_name(index)
         # Checked
@@ -43,7 +53,7 @@ class TonicPkgListCtrlEvents(object):
                 self.view.list_pkg.SetItemBackgroundColour(index, "white")
                 self.model.unremove_pkg(pkg)
             elif not pkg in self.model.get_all_marked_pkgs():
-                deps = self.model.get_deps(pkg)
+                deps = self.model.get_deps_name(pkg)
                 if deps and not pkg in self.model.marked_pkgs.keys():
                     dlg = wx.SingleChoiceDialog(self.view, _("deps_dialog_title"), \
                                                     _("deps_add_dialog_caption"), \
