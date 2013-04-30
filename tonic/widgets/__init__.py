@@ -29,3 +29,4 @@ from menubar import TonicMenuBar
 from toolbar import TonicToolBar
 from pkglistctrl import TonicPkgListCtrl
 from catlistctrl import TonicCatListCtrl
+from notebook import TonicNotebook

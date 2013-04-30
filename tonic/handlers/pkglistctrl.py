@@ -40,8 +40,8 @@ class TonicPkgListCtrlEvents(object):
         pkg_desc = self.view.list_pkg.GetItem(event.GetIndex(), 2).GetText()
         pkg_deps = self.model.get_deps_raw(pkg)
 
-        self.view.text_tab_desc.SetValue(pkg_desc)
-        self.view.text_tab_dep.SetValue(pkg_deps)
+        self.view.notebook.text_tab_desc.SetValue(pkg_desc)
+        self.view.notebook.text_tab_dep.SetValue(pkg_deps)
 
     def on_check_item(self, index, flag):
         pkg = self.view.list_pkg.get_package_name(index)

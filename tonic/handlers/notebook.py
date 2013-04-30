@@ -40,15 +40,14 @@ class TonicNotebookEvents(object):
         pkg_id = self.view.list_pkg.GetFirstSelected()
         pkg = self.view.list_pkg.GetItem(pkg_id).GetText()
         pkg_desc = self.model.get_desc(pkg)
-        self.view.text_tab_desc.SetValue(pkg_desc)
-	#self.view.progressbar.Show()
+        self.view.notebook.text_tab_desc.SetValue(pkg_desc)
 
     def on_content_click(self, event):
         """Show package content."""
         pkg_id = self.view.list_pkg.GetFirstSelected()
         pkg = self.view.list_pkg.GetItem(pkg_id).GetText()
         pkg_content = "\n".join(self.model.get_content(pkg))
-        self.view.text_tab_cont.SetValue(pkg_content)
+        self.view.notebook.text_tab_cont.SetValue(pkg_content)
 
     def on_bconf_click(self, event):
         """Show build infos."""
@@ -63,5 +62,5 @@ class TonicNotebookEvents(object):
                 content += '\t'
                 content += value
                 content += '\n'
-        self.view.text_tab_bconf.SetValue(content)
+        self.view.notebook.text_tab_bconf.SetValue(content)
 

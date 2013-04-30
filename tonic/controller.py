@@ -68,8 +68,8 @@ class TonicController(object):
         # Notebook
         notebook_evt = handlers.TonicNotebookEvents(self.view, self.model)
         self.view.Bind(wx.EVT_BUTTON, notebook_evt.on_long_desc_click, \
-                       self.view.button_desc)
+                       self.view.notebook.button_desc)
         self.view.Bind(wx.EVT_BUTTON, notebook_evt.on_content_click, \
-                       self.view.button_cont)
+                       self.view.notebook.button_cont)
         self.view.Bind(wx.EVT_BUTTON, notebook_evt.on_bconf_click, \
-                       self.view.button_bconf)
+                       self.view.notebook.button_bconf)
