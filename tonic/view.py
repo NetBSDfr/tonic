@@ -128,7 +128,7 @@ class TonicView(wx.Frame):
         # content category list.
         list_category_sizer = wx.BoxSizer(wx.HORIZONTAL)
 
-       # Addings items to sizer.
+        # Addings items to sizer.
         list_category_sizer.Add(self.list_category, 1,\
                            wx.ALL | wx.EXPAND, 2)
         searchbox_sizer.Add(self.searchbox, 0,\

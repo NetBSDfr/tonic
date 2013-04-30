@@ -42,6 +42,12 @@ class TonicPkgListCtrlEvents(object):
 
         self.view.notebook.text_tab_desc.SetValue(pkg_desc)
         self.view.notebook.text_tab_dep.SetValue(pkg_deps)
+        # reset values
+        self.view.notebook.text_tab_cont.SetValue("")
+        self.view.notebook.text_tab_bconf.SetValue("")
+        self.view.notebook.desc_progressbar.SetValue(0)
+        self.view.notebook.cont_progressbar.SetValue(0)
+        self.view.notebook.bconf_progressbar.SetValue(0)
 
     def on_check_item(self, index, flag):
         pkg = self.view.list_pkg.get_package_name(index)

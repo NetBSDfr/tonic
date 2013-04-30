@@ -28,6 +28,8 @@
 """Events handler for TonicNotebook."""
 
 import wx
+import time
+from wx.lib.delayedresult import startWorker
 
 class TonicNotebookEvents(object):
     """Provide callbacks for TonicNotebook."""
@@ -38,27 +40,69 @@ class TonicNotebookEvents(object):
     def on_long_desc_click(self, event):
         """Show long desc."""
         pkg_id = self.view.list_pkg.GetFirstSelected()
-        pkg = self.view.list_pkg.GetItem(pkg_id).GetText()
-        pkg_desc = self.model.get_desc(pkg)
-        self.view.notebook.text_tab_desc.SetValue(pkg_desc)
+        if pkg_id != -1:
+            pkg = self.view.list_pkg.GetItem(pkg_id).GetText()
+            thread = startWorker(self.__update_desc, self.__get_desc, wargs=[pkg])
+            while(thread.is_alive()):
+                self.view.notebook.desc_progressbar.Pulse()
+                wx.Yield()
+                time.sleep(0.1)
+            self.view.notebook.desc_progressbar.SetValue(10)
+
+    def __get_desc(self, pkg):
+        """Get desc from pykgin."""
+        desc = self.model.get_desc(pkg)
+        return desc
+
+    def __update_desc(self, result):
+        """Update desc."""
+        self.view.notebook.text_tab_desc.SetValue(result.get())
 
     def on_content_click(self, event):
         """Show package content."""
         pkg_id = self.view.list_pkg.GetFirstSelected()
-        pkg = self.view.list_pkg.GetItem(pkg_id).GetText()
+        if pkg_id != -1:
+            pkg = self.view.list_pkg.GetItem(pkg_id).GetText()
+            thread = startWorker(self.__update_content, self.__get_content, wargs=[pkg])
+            while(thread.is_alive()):
+                self.view.notebook.cont_progressbar.Pulse()
+                wx.Yield()
+                time.sleep(0.1)
+            self.view.notebook.cont_progressbar.SetValue(10)
+
+    def __get_content(self, pkg):
+        """Get content from pykgin."""
         pkg_content = "\n".join(self.model.get_content(pkg))
-        self.view.notebook.text_tab_cont.SetValue(pkg_content)
+        return pkg_content
+
+    def __update_content(self, result):
+        """Update content."""
+        self.view.notebook.text_tab_cont.SetValue(result.get())
 
     def on_bconf_click(self, event):
         """Show build infos."""
         pkg_id = self.view.list_pkg.GetFirstSelected()
-        pkg = self.view.list_pkg.GetItem(pkg_id).GetText()
+        if pkg_id != -1:
+            pkg = self.view.list_pkg.GetItem(pkg_id).GetText()
+            thread = startWorker(self.__update_bconf, self.__get_bconf, wargs=[pkg])
+            while(thread.is_alive()):
+                self.view.notebook.bconf_progressbar.Pulse()
+                wx.Yield()
+                time.sleep(0.1)
+            self.view.notebook.bconf_progressbar.SetValue(10)
+
+    def __get_bconf(self, pkg):
+        """Get build conf from pykgin."""
         pkg_bconf = self.model.get_build_infos(pkg)
+        return pkg_bconf
+
+    def __update_bconf(self, result):
+        """Update build conf."""
         content = ""
-        for info in pkg_bconf.keys():
+        for info in result.get().keys():
             content += info
             content += ' =\n'
-            for value in pkg_bconf[info]:
+            for value in result.get()[info]:
                 content += '\t'
                 content += value
                 content += '\n'
