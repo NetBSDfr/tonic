@@ -57,3 +57,5 @@ TODO
  - Translation (fix missing gettext sentences, add more languages)
  - Moar test (as a monkey)
  - Unit tests (dowant)
+ - Add more pkgin features
+ - Clean the code
