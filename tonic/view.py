@@ -82,7 +82,9 @@ class TonicView(wx.Frame):
                                                wx.TE_READONLY|\
                                                wx.NO_BORDER|\
                                                wx.HSCROLL)
-
+        self.button_desc = wx.Button(self.description_tab_desc, wx.ID_ANY,
+                                     _("Show full description"))
+        
         # Creating the statusbar
         self.CreateStatusBar()
 
@@ -116,6 +118,9 @@ class TonicView(wx.Frame):
         # The third box split in 3 vertical box. YODAWG.
         v_sizer = wx.BoxSizer(wx.VERTICAL)
 
+        # description sizer
+        tab_desc_sizer = wx.BoxSizer(wx.VERTICAL)
+
         # Addings tabs
         self.description_tab.AddPage(self.description_tab_desc,
                                      _("description"))
@@ -131,8 +136,10 @@ class TonicView(wx.Frame):
         v_sizer.Add(self.description_tab, 1, wx.ALL | wx.EXPAND, 2)
         h_sizer.Add(v_sizer, 1, wx.EXPAND, 0)
 
+        # Add button to description panel.
+        tab_desc_sizer.Add(self.button_desc, 0, wx.ALL | wx.ALIGN_RIGHT, 2)
+
         # add text into notebook
-        tab_desc_sizer = wx.BoxSizer(wx.VERTICAL)
         tab_desc_sizer.Add(self.text_tab_desc, 1, wx.EXPAND, 0)
 
         tab_dep_sizer = wx.BoxSizer(wx.VERTICAL)
