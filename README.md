@@ -47,6 +47,8 @@ TODO
 
  - Apply changes (actions and progress dialog)
  - Unmark / Redo / Undo (keep changes in memory)
+ - SearchBox
+ - ProgressBar
  - Filters (store packages status)
  - Import / Export (bind with pykgin import/export)
  - Update (bind with pykgin.update())
