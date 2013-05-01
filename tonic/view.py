@@ -66,7 +66,13 @@ class TonicView(wx.Frame):
                                                   wx.TAB_TRAVERSAL)
         self.description_tab_chg = wx.Panel(self.description_tab, -1,\
                                             style=wx.SUNKEN_BORDER|\
-                                                 wx.TAB_TRAVERSAL)
+                                                  wx.TAB_TRAVERSAL)
+        self.description_tab_cont = wx.Panel(self.description_tab, -1,\
+                                             style=wx.SUNKEN_BORDER|\
+                                                   wx.TAB_TRAVERSAL)
+        self.description_tab_bconf = wx.Panel(self.description_tab, -1,\
+                                              style=wx.SUNKEN_BORDER|\
+                                                    wx.TAB_TRAVERSAL)
         self.text_tab_desc = wx.TextCtrl(self.description_tab_desc, -1, "",\
                                          style=wx.TE_MULTILINE|\
                                                wx.TE_READONLY|\
@@ -77,11 +83,17 @@ class TonicView(wx.Frame):
                                                wx.TE_READONLY|\
                                                wx.NO_BORDER|\
                                                wx.HSCROLL)
-        self.text_tab_chg = wx.TextCtrl(self.description_tab_chg, -1, "",\
+        self.text_tab_cont = wx.TextCtrl(self.description_tab_cont, -1, "",\
                                          style=wx.TE_MULTILINE|\
                                                wx.TE_READONLY|\
                                                wx.NO_BORDER|\
                                                wx.HSCROLL)
+        self.text_tab_bconf = wx.TextCtrl(self.description_tab_bconf,\
+                                          -1, "",\
+                                          style=wx.TE_MULTILINE|\
+                                                wx.TE_READONLY|\
+                                                wx.NO_BORDER|\
+                                                wx.HSCROLL)
         self.button_desc = wx.Button(self.description_tab_desc, wx.ID_ANY,
                                      _("Show full description"))
         
@@ -106,7 +118,7 @@ class TonicView(wx.Frame):
 
     def __set_layout_properties(self):
         """Set layout properties"""
-        self.list_category.SetMinSize((150, 460))
+        self.list_category.SetMinSize((200, 460))
         self.search_box.SetMinSize((450, 25))
 
     def __do_layout(self):
@@ -126,8 +138,10 @@ class TonicView(wx.Frame):
                                      _("description"))
         self.description_tab.AddPage(self.description_tab_dep,
                                      _("dependencies"))
-        self.description_tab.AddPage(self.description_tab_chg,
-                                     _("changes_list"))
+        self.description_tab.AddPage(self.description_tab_cont,
+                                     _("Contents"))
+        self.description_tab.AddPage(self.description_tab_bconf,
+                                     _("Build Config"))
 
         # Adding items
         h_sizer.Add(self.list_category, 0, wx.ALL | wx.EXPAND, 2)
@@ -145,12 +159,16 @@ class TonicView(wx.Frame):
         tab_dep_sizer = wx.BoxSizer(wx.VERTICAL)
         tab_dep_sizer.Add(self.text_tab_dep, 1, wx.EXPAND, 0)
 
-        tab_chg_sizer = wx.BoxSizer(wx.VERTICAL)
-        tab_chg_sizer.Add(self.text_tab_chg, 1, wx.EXPAND, 0)
+        tab_cont_sizer = wx.BoxSizer(wx.VERTICAL)
+        tab_cont_sizer.Add(self.text_tab_cont, 1, wx.EXPAND, 0)
 
+        tab_bconf_sizer = wx.BoxSizer(wx.VERTICAL)
+        tab_bconf_sizer.Add(self.text_tab_bconf, 1, wx.EXPAND, 0)
+        
         self.description_tab_desc.SetSizer(tab_desc_sizer)
         self.description_tab_dep.SetSizer(tab_dep_sizer)
-        self.description_tab_chg.SetSizer(tab_chg_sizer)
+        self.description_tab_cont.SetSizer(tab_cont_sizer)
+        self.description_tab_bconf.SetSizer(tab_bconf_sizer)
 
         # mainbox container
         main_sizer.Add(h_sizer, 1, wx.ALL | wx.EXPAND, 4)
