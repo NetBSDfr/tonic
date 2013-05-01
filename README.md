@@ -42,3 +42,18 @@ cp tonic/locale/en/LC_MESSAGES/tonic.pot tonic/locale/de/LC_MESSAGES/
 poedit tonic/locale/de/LC_MESSAGES/tonic.pot
 ```
 
+TODO
+====
+
+ - Apply changes (actions and progress dialog)
+ - Unmark / Redo / Undo (keep changes in memory)
+ - Filters (store packages status)
+ - Import / Export (bind with pykgin import/export)
+ - Update (bind with pykgin.update())
+ - Upgrade (show upgrades, bind with pykgin.upgrade and progress dialog)
+ - Repository Settings (TextCtrl for edit /usr/pkg/etc/pkgin/repositories.cong)
+ - Preferences 
+ - Changes List
+ - Translation (fix missing gettext sentences, add more languages)
+ - Moar test (as a monkey)
+ - Unit tests (dowant)
