@@ -96,6 +96,10 @@ class TonicView(wx.Frame):
                                                 wx.HSCROLL)
         self.button_desc = wx.Button(self.description_tab_desc, wx.ID_ANY,
                                      _("Show full description"))
+        self.button_cont = wx.Button(self.description_tab_cont, wx.ID_ANY,
+                                     _("Show contents"))
+        self.button_bconf = wx.Button(self.description_tab_bconf, wx.ID_ANY,
+                                     _("Show build config"))
         
         # Creating the statusbar
         self.CreateStatusBar()
@@ -133,6 +137,15 @@ class TonicView(wx.Frame):
         # description sizer
         tab_desc_sizer = wx.BoxSizer(wx.VERTICAL)
 
+        # dependences sizer
+        tab_dep_sizer = wx.BoxSizer(wx.VERTICAL)
+
+        # contents sizer
+        tab_cont_sizer = wx.BoxSizer(wx.VERTICAL)
+
+        # build config sizer
+        tab_bconf_sizer = wx.BoxSizer(wx.VERTICAL)
+
         # Addings tabs
         self.description_tab.AddPage(self.description_tab_desc,
                                      _("description"))
@@ -151,20 +164,23 @@ class TonicView(wx.Frame):
         h_sizer.Add(v_sizer, 1, wx.EXPAND, 0)
 
         # Add button to description panel.
-        tab_desc_sizer.Add(self.button_desc, 0, wx.ALL | wx.ALIGN_RIGHT, 2)
+        tab_desc_sizer.Add(self.button_desc, 0,\
+                           wx.ALL | wx.ALIGN_RIGHT, 2)
 
-        # add text into notebook
+        # Add button to content panel.
+        tab_cont_sizer.Add(self.button_cont, 0,\
+                           wx.ALL | wx.ALIGN_RIGHT, 2)
+
+        # Add button to build config panel.
+        tab_bconf_sizer.Add(self.button_bconf, 0,\
+                            wx.ALL | wx.ALIGN_RIGHT, 2)
+
+        # add text area into notebook
         tab_desc_sizer.Add(self.text_tab_desc, 1, wx.EXPAND, 0)
-
-        tab_dep_sizer = wx.BoxSizer(wx.VERTICAL)
         tab_dep_sizer.Add(self.text_tab_dep, 1, wx.EXPAND, 0)
-
-        tab_cont_sizer = wx.BoxSizer(wx.VERTICAL)
         tab_cont_sizer.Add(self.text_tab_cont, 1, wx.EXPAND, 0)
-
-        tab_bconf_sizer = wx.BoxSizer(wx.VERTICAL)
         tab_bconf_sizer.Add(self.text_tab_bconf, 1, wx.EXPAND, 0)
-        
+       
         self.description_tab_desc.SetSizer(tab_desc_sizer)
         self.description_tab_dep.SetSizer(tab_dep_sizer)
         self.description_tab_cont.SetSizer(tab_cont_sizer)
