@@ -57,10 +57,27 @@ class TonicToolBar(wx.ToolBar):
 
     def __fill_toolbar(self):
         """Insert elements in toolbar."""
-        self.AddSimpleTool(wx.ID_OPEN, self.open_ico, _("open"), "")
-        self.AddSimpleTool(wx.ID_EXIT, self.exit_ico, _("exit"), "")
+        self.AddLabelTool(wx.ID_OPEN, "Import", self.open_ico, 
+                          bmpDisabled=wx.NullBitmap, kind=0,
+                          shortHelp='Import', longHelp='Import', 
+                          clientData=None)
         self.AddSeparator()
-        self.AddSimpleTool(wx.ID_UNDO, self.undo_ico, _("unmark_all"), "")
+        self.AddLabelTool(wx.ID_UNDO, "Unmark All", self.undo_ico, 
+                          bmpDisabled=wx.NullBitmap, kind=0,
+                          shortHelp='Unmark All', longHelp='Unmark All', 
+                          clientData=None)
+        self.AddLabelTool(wx.ID_APPLY, "Install", self.apply_ico, 
+                          bmpDisabled=wx.NullBitmap, kind=0,
+                          shortHelp='Install packages', 
+                          longHelp='Install marked packages', 
+                          clientData=None)
         self.AddSeparator()
-        self.AddSimpleTool(wx.ID_APPLY, self.apply_ico, _("install"), "")
-        self.AddSeparator()
+        self.AddRadioLabelTool(wx.ID_ANY, "Installed", self.apply_ico, 
+                               wx.NullBitmap, _("Installed"), 
+                               _("Installed Packages"))
+        self.AddRadioLabelTool(wx.ID_ANY, "Available", self.apply_ico, 
+                               wx.NullBitmap, _("Available"), 
+                               _("Availabled Packages"))
+        self.AddRadioLabelTool(wx.ID_ANY, "Upgradeable", self.apply_ico, 
+                               wx.NullBitmap, _("Upgradeable"), 
+                               _("Upgradeable Packages"))
