@@ -29,23 +29,19 @@
 
 import wx
 
-def statusbar():
-    self.statusbar = self.CreateStatusBar()
-    self.statusbar.SetFieldsCount(3)
-    self.statusbar.SetStatusWidths([320, -1, -2])
-
-    self.progress_bar = wx.Gauge(self.statusbar, -1,
-                                 style=wx.GA_HORIZONTAL|\
-                                       wx.GA_SMOOTH)
+def progressbar(self):
+    self.progressbar = wx.Gauge(self.statusbar, -1,
+                                style=wx.GA_HORIZONTAL|\
+                                      wx.GA_SMOOTH)
     rect = self.statusbar.GetFieldRect(1)
     
     # set position on statusbar
-    self.progress_bar.SetPosition((rect.x+2, rect.y+2))
+    self.progressbar.SetPosition((rect.x+2, rect.y+2))
     
     # set size.
-    self.progress_bar.SetSize((rect.width-4, rect.height-4))
+    self.progressbar.SetSize((rect.width-4, rect.height-4))
 
-    self.progress_bar.Hide()
+    self.progressbar.Hide()
 
     # use this to show the statusbar
-    #self.progress_bar.Show() 
+    #self.progressbar.Show() 
