@@ -41,6 +41,7 @@ class TonicNotebookEvents(object):
         pkg = self.view.list_pkg.GetItem(pkg_id).GetText()
         pkg_desc = self.model.get_desc(pkg)
         self.view.text_tab_desc.SetValue(pkg_desc)
+	#self.view.progressbar.Show()
 
     def on_content_click(self, event):
         """Show package content."""

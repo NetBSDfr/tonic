@@ -1,4 +1,5 @@
 #!/usr/bin/env python
+# -*- coding: UTF-8 -*-
 #
 # Copyright (c) 2013 Guillaume Delpierre <gde@llew.me>
 # Copyright (c) 2013 Sylvain Mora <sylvain.mora@solevis.net>
@@ -31,164 +32,244 @@ import wx
 import widgets
 
 class TonicView(wx.Frame):
-    """HMI for Tonic"""
+    """ HMI for Tonic. """
     def __init__(self, parent, title):
-        """Constructor."""
+        """ Constructor. """
         wx.Frame.__init__(self, parent, title=title,\
-                          pos=(-1, -1), size=(800,600),\
-                          style=wx.DEFAULT_FRAME_STYLE |\
-                                wx.RESIZE_BORDER)
-        # Creating the categories list
-        self.list_category = widgets.TonicCatListCtrl(self,
-                                                      style=wx.LC_REPORT|\
-                                                           wx.LC_NO_HEADER|\
-                                                           wx.LC_LIST|\
-                                                           wx.SUNKEN_BORDER|\
-                                                           wx.LC_SORT_ASCENDING|\
-                                                           wx.LC_SINGLE_SEL)
+                          pos=(-1, -1), size=(800, 600),\
+                         style=wx.DEFAULT_FRAME_STYLE)
 
-        # Creating the searchbox
-        self.search_box = wx.SearchCtrl(self, -1, "")
-
-        # Creating the packages list
-        self.list_pkg = widgets.TonicPkgListCtrl(self,
-                                                 style=wx.LC_REPORT|\
-                                                      wx.SUNKEN_BORDER|\
-                                                      wx.LC_SORT_ASCENDING)
-
-        # Creating suppl. informations about package panel
-        self.description_tab = wx.Notebook(self, -1, style=wx.NB_BOTTOM)
-        self.description_tab_desc = wx.Panel(self.description_tab, -1,\
-                                             style=wx.SUNKEN_BORDER|\
-                                                   wx.TAB_TRAVERSAL)
-        self.description_tab_dep = wx.Panel(self.description_tab, -1,\
-                                            style=wx.SUNKEN_BORDER|\
-                                                  wx.TAB_TRAVERSAL)
-        self.description_tab_chg = wx.Panel(self.description_tab, -1,\
-                                            style=wx.SUNKEN_BORDER|\
-                                                  wx.TAB_TRAVERSAL)
-        self.description_tab_cont = wx.Panel(self.description_tab, -1,\
-                                             style=wx.SUNKEN_BORDER|\
-                                                   wx.TAB_TRAVERSAL)
-        self.description_tab_bconf = wx.Panel(self.description_tab, -1,\
-                                              style=wx.SUNKEN_BORDER|\
-                                                    wx.TAB_TRAVERSAL)
-        self.text_tab_desc = wx.TextCtrl(self.description_tab_desc, -1, "",\
-                                         style=wx.TE_MULTILINE|\
-                                               wx.TE_READONLY|\
-                                               wx.NO_BORDER|\
-                                               wx.HSCROLL)
-        self.text_tab_dep = wx.TextCtrl(self.description_tab_dep, -1, "",\
-                                         style=wx.TE_MULTILINE|\
-                                               wx.TE_READONLY|\
-                                               wx.NO_BORDER|\
-                                               wx.HSCROLL)
-        self.text_tab_cont = wx.TextCtrl(self.description_tab_cont, -1, "",\
-                                         style=wx.TE_MULTILINE|\
-                                               wx.TE_READONLY|\
-                                               wx.NO_BORDER|\
-                                               wx.HSCROLL)
-        self.text_tab_bconf = wx.TextCtrl(self.description_tab_bconf,\
-                                          -1, "",\
-                                          style=wx.TE_MULTILINE|\
-                                                wx.TE_READONLY|\
-                                                wx.NO_BORDER|\
-                                                wx.HSCROLL)
-        self.button_desc = wx.Button(self.description_tab_desc, wx.ID_ANY,
-                                     _("Show full description"))
-        self.button_cont = wx.Button(self.description_tab_cont, wx.ID_ANY,
-                                     _("Show contents"))
-        self.button_bconf = wx.Button(self.description_tab_bconf, wx.ID_ANY,
-                                     _("Show build config"))
+        # Creating panel.
+        self.main_panel = wx.SplitterWindow(self, wx.ID_ANY,\
+                                            style=wx.SP_3D | wx.SP_BORDER)
+        self.left_panel = wx.Panel(self.main_panel, wx.ID_ANY)
+        self.right_panel = wx.Panel(self.main_panel, wx.ID_ANY)
         
-        # Creating the statusbar
-        self.CreateStatusBar()
+        self.split_panel_pkg = wx.SplitterWindow(self.right_panel,\
+                                                 wx.ID_ANY,\
+                                                 style=wx.SP_3D |\
+                                                 wx.SP_BORDER)
+        self.pkg_panel = wx.Panel(self.split_panel_pkg, wx.ID_ANY)
+        self.tab_panel = wx.Panel(self.split_panel_pkg, wx.ID_ANY)
+        self.notebook_panel = wx.Notebook(self.tab_panel, wx.ID_ANY,\
+                                          style=wx.NB_BOTTOM)
+       
+        # Creating category list.
+        self.list_category = widgets.TonicCatListCtrl(self.left_panel,\
+                                                      style=wx.LC_REPORT|\
+                                                      wx.LC_NO_HEADER |\
+                                                      wx.LC_LIST |\
+                                                      wx.SUNKEN_BORDER|\
+                                                      wx.LC_SORT_ASCENDING|\
+                                                      wx.LC_SINGLE_SEL)
+        # Creating packages list.
+        self.list_pkg = widgets.TonicPkgListCtrl(self.pkg_panel,\
+                                                 style=wx.LC_REPORT|\
+                                                 wx.SUNKEN_BORDER|\
+                                                 wx.LC_SORT_ASCENDING)
 
-        # Creating the menubar
+        # Creating searchbox.
+        self.searchbox = wx.SearchCtrl(self.right_panel, wx.ID_ANY, "")
+
+        # Creating suppl. informations about package panel.
+        self.desc_panel = wx.Panel(self.notebook_panel, wx.ID_ANY)
+        self.dep_panel = wx.Panel(self.notebook_panel, wx.ID_ANY)
+        self.cont_panel = wx.Panel(self.notebook_panel, wx.ID_ANY)
+        self.bconf_panel = wx.Panel(self.notebook_panel, wx.ID_ANY)
+        
+        # Creating text area.
+        self.text_tab_desc = wx.TextCtrl(self.desc_panel,\
+                                     wx.ID_ANY, "",\
+                                     style=wx.TE_MULTILINE|\
+                                     wx.HSCROLL|wx.TE_READONLY|\
+                                     wx.NO_BORDER)
+        self.text_tab_dep = wx.TextCtrl(self.dep_panel,\
+                                    wx.ID_ANY, "",\
+                                    style=wx.TE_MULTILINE|\
+                                    wx.HSCROLL|wx.TE_READONLY|\
+                                    wx.NO_BORDER)
+        self.text_tab_cont = wx.TextCtrl(self.cont_panel,\
+                                     wx.ID_ANY, "",\
+                                     style=wx.TE_MULTILINE|\
+                                     wx.HSCROLL|wx.TE_READONLY|\
+                                     wx.NO_BORDER)
+        self.text_tab_bconf = wx.TextCtrl(self.bconf_panel,\
+                                      wx.ID_ANY, "",\
+                                      style=wx.TE_MULTILINE|\
+                                      wx.HSCROLL|wx.TE_READONLY|\
+                                      wx.NO_BORDER)
+        
+        # Creating desc/content/bconf progressbar.
+        self.desc_progressbar = wx.Gauge(self.desc_panel,\
+                                         wx.ID_ANY, 10,\
+                                         style=wx.GA_HORIZONTAL|\
+                                         wx.GA_SMOOTH)
+        self.cont_progressbar = wx.Gauge(self.cont_panel,\
+                                         wx.ID_ANY, 10,\
+                                         style=wx.GA_HORIZONTAL|\
+                                         wx.GA_SMOOTH)
+        self.bconf_progressbar = wx.Gauge(self.bconf_panel,\
+                                          wx.ID_ANY, 10,\
+                                          style=wx.GA_HORIZONTAL|\
+                                          wx.GA_SMOOTH)
+        
+        # Creating desc/content/bconf button.
+        self.button_desc = wx.Button(self.desc_panel, wx.ID_ANY,\
+                                     _("Show full description"))
+        self.button_cont = wx.Button(self.cont_panel, wx.ID_ANY,\
+                                     _("Show content"))
+        self.button_bconf = wx.Button(self.bconf_panel, wx.ID_ANY,\
+                                      _("Show build config"))
+        
+        # Creating the statusbar.
+        self.statusbar = self.CreateStatusBar()
+
+        # Creating the menubar.
         menubar = widgets.TonicMenuBar()
         self.SetMenuBar(menubar)
 
-        # Creating the toolbar
+        # Creating the toolbar.
         toolbar = widgets.TonicToolBar(self)
         self.SetToolBar(toolbar)
         toolbar.Realize()
 
-        # Layout
-        self.__set_layout_properties()
+        # Set the layout.
+        self.__set_properties()
         self.__do_layout()
 
-        # Tadam
+        # Show the frame.
         self.Show(True)
 
-    def __set_layout_properties(self):
-        """Set layout properties"""
-        self.list_category.SetMinSize((200, 460))
-        self.search_box.SetMinSize((450, 25))
+    def __set_properties(self):
+        """ Set layout properties. """
+        self.SetTitle(_("Tonic"))
+        # frame size.
+        self.SetSize((800, 600))
+        # main panel size.
+        self.main_panel.SetMinSize((800, 595))
+        # left and right panel size.
+        self.left_panel.SetMinSize((200, 595))
+        self.right_panel.SetMinSize((595, 595))
+        # split panel pkg size.
+        self.split_panel_pkg.SetMinSize((595, 570))
+        # pkg panel size (split, inside split panel).
+        self.pkg_panel.SetMinSize((595, 265))
+        # tab panel size (split, inside split panel).
+        self.tab_panel.SetMinSize((595, 295))
+        # notebook panel size (inside tab panel).
+        self.notebook_panel.SetMinSize((594, 295))
+        # notebook tab panel size.
+        self.desc_panel.SetMinSize((590, 265))
+        self.dep_panel.SetMinSize((590, 265))
+        self.cont_panel.SetMinSize((590, 265))
+        self.bconf_panel.SetMinSize((590, 265))
+        # category list size (inside left panel).
+        self.list_category.SetMinSize((195, 590))
+        # searchbox size (inside right panel).
+        self.searchbox.SetMinSize((590, 25))
+        # pkg list size (inside right panel).
+        self.list_pkg.SetMinSize((590, 265))
+        # progressbar size (inside notebook tab panel).
+        self.desc_progressbar.SetMinSize((395, 25))
+        self.cont_progressbar.SetMinSize((395, 25))
+        self.bconf_progressbar.SetMinSize((395, 25))
+        # button size (inside notebook tab panel).
+        self.button_desc.SetMinSize((145, 30))
+        self.button_cont.SetMinSize((145, 30))
+        self.button_bconf.SetMinSize((145, 30))
 
     def __do_layout(self):
-        """Construct the layout"""
-        # main box.
+        """ Contruct the layout. """
+        # mainbox content main panel.
         main_sizer = wx.BoxSizer(wx.VERTICAL)
-        # The second box split in 2 horizontal box.
-        h_sizer = wx.BoxSizer(wx.HORIZONTAL)
-        # The third box split in 3 vertical box. YODAWG.
-        v_sizer = wx.BoxSizer(wx.VERTICAL)
-
-        # description sizer
-        tab_desc_sizer = wx.BoxSizer(wx.VERTICAL)
-
-        # dependences sizer
-        tab_dep_sizer = wx.BoxSizer(wx.VERTICAL)
-
-        # contents sizer
-        tab_cont_sizer = wx.BoxSizer(wx.VERTICAL)
-
-        # build config sizer
-        tab_bconf_sizer = wx.BoxSizer(wx.VERTICAL)
-
-        # Addings tabs
-        self.description_tab.AddPage(self.description_tab_desc,
-                                     _("description"))
-        self.description_tab.AddPage(self.description_tab_dep,
-                                     _("dependencies"))
-        self.description_tab.AddPage(self.description_tab_cont,
-                                     _("Contents"))
-        self.description_tab.AddPage(self.description_tab_bconf,
-                                     _("Build Config"))
-
-        # Adding items
-        h_sizer.Add(self.list_category, 0, wx.ALL | wx.EXPAND, 2)
-        v_sizer.Add(self.search_box, 0, wx.ALL | wx.EXPAND, 2)
-        v_sizer.Add(self.list_pkg, 1, wx.ALL | wx.EXPAND, 2)
-        v_sizer.Add(self.description_tab, 1, wx.ALL | wx.EXPAND, 2)
-        h_sizer.Add(v_sizer, 1, wx.EXPAND, 0)
-
-        # Add button to description panel.
-        tab_desc_sizer.Add(self.button_desc, 0,\
-                           wx.ALL | wx.ALIGN_RIGHT, 2)
-
-        # Add button to content panel.
-        tab_cont_sizer.Add(self.button_cont, 0,\
-                           wx.ALL | wx.ALIGN_RIGHT, 2)
-
-        # Add button to build config panel.
-        tab_bconf_sizer.Add(self.button_bconf, 0,\
-                            wx.ALL | wx.ALIGN_RIGHT, 2)
-
-        # add text area into notebook
-        tab_desc_sizer.Add(self.text_tab_desc, 1, wx.EXPAND, 0)
-        tab_dep_sizer.Add(self.text_tab_dep, 1, wx.EXPAND, 0)
-        tab_cont_sizer.Add(self.text_tab_cont, 1, wx.EXPAND, 0)
-        tab_bconf_sizer.Add(self.text_tab_bconf, 1, wx.EXPAND, 0)
-       
-        self.description_tab_desc.SetSizer(tab_desc_sizer)
-        self.description_tab_dep.SetSizer(tab_dep_sizer)
-        self.description_tab_cont.SetSizer(tab_cont_sizer)
-        self.description_tab_bconf.SetSizer(tab_bconf_sizer)
-
-        # mainbox container
-        main_sizer.Add(h_sizer, 1, wx.ALL | wx.EXPAND, 4)
-
+        searchbox_sizer = wx.BoxSizer(wx.VERTICAL)
+        
+        # inside tab panel.
+        panel_sizer = wx.BoxSizer(wx.HORIZONTAL)
+        
+        # inside pkg panel.
+        pkg_sizer = wx.BoxSizer(wx.HORIZONTAL)
+        
+        # content category list.
+        list_category_sizer = wx.BoxSizer(wx.HORIZONTAL)
+        
+        # notebook tab sizer.
+        desc_tab_sizer = wx.BoxSizer(wx.VERTICAL)
+        desc_ctrl_sizer = wx.BoxSizer(wx.HORIZONTAL)
+        dep_sizer = wx.BoxSizer(wx.HORIZONTAL)
+        cont_tab_sizer = wx.BoxSizer(wx.VERTICAL)
+        cont_ctrl_sizer = wx.BoxSizer(wx.HORIZONTAL)
+        bconf_tab_sizer = wx.BoxSizer(wx.VERTICAL)
+        bconf_ctrl_sizer = wx.BoxSizer(wx.HORIZONTAL)
+        
+        # Addings tabs.
+        self.notebook_panel.AddPage(self.desc_panel, _("Description"))
+        self.notebook_panel.AddPage(self.dep_panel, _("Dependencies"))
+        self.notebook_panel.AddPage(self.cont_panel, _("Content"))
+        self.notebook_panel.AddPage(self.bconf_panel, _("Build Config"))
+        
+        # Addings items to sizer.
+        list_category_sizer.Add(self.list_category, 1,\
+                           wx.ALL | wx.EXPAND, 2)
+        searchbox_sizer.Add(self.searchbox, 0,\
+                            wx.ALL | wx.EXPAND |\
+                            wx.ALIGN_CENTER_HORIZONTAL |\
+                            wx.ALIGN_CENTER_VERTICAL, 2)
+        pkg_sizer.Add(self.list_pkg, 1,\
+                      wx.ALL | wx.EXPAND |\
+                      wx.ALIGN_CENTER_HORIZONTAL |\
+                      wx.ALIGN_CENTER_VERTICAL, 2)
+        desc_ctrl_sizer.Add(self.desc_progressbar, 1,\
+                            wx.ALL | wx.ALIGN_CENTER_HORIZONTAL |\
+                            wx.ALIGN_CENTER_VERTICAL, 2)
+        desc_ctrl_sizer.Add(self.button_desc, 0,\
+                            wx.ALL | wx.ALIGN_RIGHT |\
+                            wx.ALIGN_CENTER_HORIZONTAL |\
+                            wx.ALIGN_CENTER_VERTICAL, 2)
+        desc_tab_sizer.Add(desc_ctrl_sizer, 1, wx.EXPAND, 0)
+        desc_tab_sizer.Add(self.text_tab_desc, 6, wx.EXPAND, 0)
+        dep_sizer.Add(self.text_tab_dep, 1, wx.EXPAND, 0)
+        cont_ctrl_sizer.Add(self.cont_progressbar, 1,\
+                            wx.ALL | wx.ALIGN_CENTER_HORIZONTAL |\
+                            wx.ALIGN_CENTER_VERTICAL, 2)
+        cont_ctrl_sizer.Add(self.button_cont, 0,\
+                            wx.ALL | wx.ALIGN_RIGHT |\
+                            wx.ALIGN_CENTER_HORIZONTAL |\
+                            wx.ALIGN_CENTER_VERTICAL, 2)
+        cont_tab_sizer.Add(cont_ctrl_sizer, 1, wx.EXPAND, 0)
+        cont_tab_sizer.Add(self.text_tab_cont, 6, wx.EXPAND, 0)
+        bconf_ctrl_sizer.Add(self.bconf_progressbar, 1,\
+                             wx.ALL | wx.ALIGN_CENTER_HORIZONTAL |\
+                             wx.ALIGN_CENTER_VERTICAL, 2)
+        bconf_ctrl_sizer.Add(self.button_bconf, 0,\
+                             wx.ALL | wx.ALIGN_RIGHT |\
+                             wx.ALIGN_CENTER_HORIZONTAL |\
+                             wx.ALIGN_CENTER_VERTICAL, 2)
+        bconf_tab_sizer.Add(bconf_ctrl_sizer, 1, wx.EXPAND, 0)
+        bconf_tab_sizer.Add(self.text_tab_bconf, 6, wx.EXPAND, 0)
+        panel_sizer.Add(self.notebook_panel, 1, wx.EXPAND, 0)
+        
+        # Populate panel w/ right size.
+        self.left_panel.SetSizer(list_category_sizer)
+        self.pkg_panel.SetSizer(pkg_sizer)
+        self.desc_panel.SetSizer(desc_tab_sizer)
+        self.dep_panel.SetSizer(dep_sizer)
+        self.cont_panel.SetSizer(cont_tab_sizer)
+        self.bconf_panel.SetSizer(bconf_tab_sizer)
+        self.tab_panel.SetSizer(panel_sizer)
+        
+        # split pkg panel.
+        self.split_panel_pkg.SplitHorizontally(self.pkg_panel,\
+                                               self.tab_panel)
+        searchbox_sizer.Add(self.split_panel_pkg, 1, wx.EXPAND, 0)
+        self.right_panel.SetSizer(searchbox_sizer)
+        
+        # split main panel.
+        self.main_panel.SplitVertically(self.left_panel,\
+                                        self.right_panel)
+        main_sizer.Add(self.main_panel, 1,\
+                       wx.EXPAND | wx.ALIGN_CENTER_HORIZONTAL |\
+                       wx.ALIGN_CENTER_VERTICAL, 0)
         self.SetSizer(main_sizer)
         main_sizer.SetSizeHints(self)
         self.Layout()
