@@ -41,6 +41,10 @@ class TonicController(object):
 
         ### Set events
 
+        # Toolbar
+        toolbar_evt = handlers.TonicToolBarEvents(self.view, self.model)
+        self.view.Bind(wx.EVT_MENU, toolbar_evt.on_unmark_all, \
+                       self.view.GetToolBar().unmark_tool)
         # Menubar
         menubar_evt = handlers.TonicMenuBarEvents(self.view, self.model)
         self.view.Bind(wx.EVT_MENU, menubar_evt.on_about, \
@@ -51,6 +55,8 @@ class TonicController(object):
                        self.view.GetMenuBar().import_menu)
         self.view.Bind(wx.EVT_MENU, menubar_evt.on_export_file, \
                        self.view.GetMenuBar().export_menu)
+        self.view.Bind(wx.EVT_MENU, toolbar_evt.on_unmark_all, \
+                       self.view.GetMenuBar().unmark_all_menu)
 
         # Category list
         cat_list_evt =  handlers.TonicCatListCtrlEvents(self.view, self.model)

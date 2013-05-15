@@ -57,29 +57,29 @@ class TonicToolBar(wx.ToolBar):
 
     def __fill_toolbar(self):
         """Insert elements in toolbar."""
-        self.AddLabelTool(wx.ID_OPEN, _("Import"), self.open_ico, 
+        self.import_tool = self.AddLabelTool(wx.ID_OPEN, _("Import"), self.open_ico,
                           bmpDisabled=wx.NullBitmap, kind=0,
-                          shortHelp=_("Import"), 
-                          longHelp=_("Import"), 
+                          shortHelp=_("Import"),
+                          longHelp=_("Import"),
                           clientData=None)
         self.AddSeparator()
-        self.AddLabelTool(wx.ID_UNDO, _("Unmark All"), self.undo_ico, 
+        self.unmark_tool = self.AddLabelTool(wx.ID_UNDO, _("Unmark All"), self.undo_ico,
                           bmpDisabled=wx.NullBitmap, kind=0,
-                          shortHelp=_("Unmark All"), 
-                          longHelp=_("Unmark All"), 
+                          shortHelp=_("Unmark All"),
+                          longHelp=_("Unmark All"),
                           clientData=None)
-        self.AddLabelTool(wx.ID_APPLY, _("Apply"), self.apply_ico, 
+        self.apply_tool = self.AddLabelTool(wx.ID_APPLY, _("Apply"), self.apply_ico,
                           bmpDisabled=wx.NullBitmap, kind=0,
-                          shortHelp=_("Apply"), 
-                          longHelp=_("Apply"), 
+                          shortHelp=_("Apply"),
+                          longHelp=_("Apply"),
                           clientData=None)
         self.AddSeparator()
-        self.AddRadioLabelTool(wx.ID_ANY, _("Installed"), self.apply_ico, 
-                               wx.NullBitmap, _("Installed"), 
+        self.AddRadioLabelTool(wx.ID_ANY, _("Installed"), self.apply_ico,
+                               wx.NullBitmap, _("Installed"),
                                _("Installed Packages"))
-        self.AddRadioLabelTool(wx.ID_ANY, _("Available"), self.apply_ico, 
-                               wx.NullBitmap, _("Available"), 
+        self.AddRadioLabelTool(wx.ID_ANY, _("Available"), self.apply_ico,
+                               wx.NullBitmap, _("Available"),
                                _("Availabled Packages"))
-        self.AddRadioLabelTool(wx.ID_ANY, _("Upgradeable"), self.apply_ico, 
-                               wx.NullBitmap, _("Upgradeable"), 
+        self.AddRadioLabelTool(wx.ID_ANY, _("Upgradeable"), self.apply_ico,
+                               wx.NullBitmap, _("Upgradeable"),
                                _("Upgradeable Packages"))

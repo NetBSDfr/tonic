@@ -73,7 +73,7 @@ class TonicMenuBarEvents(object):
 
     def on_about(self, event):
         """Blabla some stuff about tonic."""
- 
+
         dlg_about = wx.AboutDialogInfo()
 
         description = """Pkgin aims to provide a GUI for pkgin."""
@@ -95,19 +95,19 @@ documentation and/or other materials provided with the distribution.
 
 THIS SOFTWARE IS PROVIDED BY THE AUTHOR(S) ``AS IS'' AND ANY EXPRESS
 OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE IMPLIED
-WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE 
+WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE
 ARE DISCLAIMED.
 IN NO EVENT SHALL THE AUTHOR(S) BE LIABLE FOR ANY DIRECT, INDIRECT,
 INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL DAMAGES (INCLUDING,
-BUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES; 
-LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER 
-CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, 
-STRICT LIABILITY, OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) 
+BUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES;
+LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER
+CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT,
+STRICT LIABILITY, OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE)
 ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED
 OF THE POSSIBILITY OF SUCH DAMAGE. """
 
         dev = """Sylvain Mora \nGuillaume Delpierre"""
-        
+
         # Set dialog window properties.
         dlg_about.SetName('Pkgin')
         dlg_about.SetVersion('0.1')
@@ -123,3 +123,8 @@ OF THE POSSIBILITY OF SUCH DAMAGE. """
     def on_exit(self, event):
         """Action on exit."""
         self.view.Close(True)
+
+    def on_unmark_all(self, event):
+        """Unmark all packages."""
+        self.model.unmark_all()
+        self.view.list_pkg.refresh([], [])

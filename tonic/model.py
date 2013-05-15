@@ -81,6 +81,13 @@ class TonicModel(object):
         if pkg in self.marked_pkgs.keys():
             self.marked_pkgs.pop(pkg)
 
+    def unmark_all(self):
+        """Remove a pkg in marked list for future install."""
+        self.marked_pkgs.clear()
+        for pkg in self.installed_pkgs:
+            self.marked_pkgs[pkg] = []
+        del self.remove_pkgs[:]
+
     def remove_pkg(self, pkg):
         """Add a pkg in remove list for future uninstall."""
         if not pkg in self.remove_pkgs:
