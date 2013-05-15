@@ -59,6 +59,8 @@ class TonicController(object):
                        self.view.GetMenuBar().export_menu)
         self.view.Bind(wx.EVT_MENU, toolbar_evt.on_unmark_all, \
                        self.view.GetMenuBar().unmark_all_menu)
+        self.view.Bind(wx.EVT_MENU, menubar_evt.on_update, \
+                       self.view.GetMenuBar().update_menu)
 
         # Category list
         cat_list_evt =  handlers.TonicCatListCtrlEvents(self.view, self.model)

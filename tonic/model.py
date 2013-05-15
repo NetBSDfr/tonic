@@ -154,3 +154,8 @@ class TonicModel(object):
         for dep in self.marked_pkgs[pkg]:
             self.marked_pkgs[dep] = []
         self.marked_pkgs.pop(pkg)
+
+    def update(self):
+        """Update packages list."""
+        self.pykgin.update()
+

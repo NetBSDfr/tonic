@@ -29,6 +29,7 @@
 
 import wx
 import os
+from wx.lib.delayedresult import startWorker
 
 WILDCARD = "Tonic files (*.tonic)|*.tonic |"\
            "Conf files (*.conf)|*.conf |"\
@@ -128,3 +129,27 @@ OF THE POSSIBILITY OF SUCH DAMAGE. """
         """Unmark all packages."""
         self.model.unmark_all()
         self.view.list_pkg.refresh([], [])
+
+    def on_update(self, event):
+        """Update packages list."""
+        dialog = wx.ProgressDialog("Update", \
+                                   "Updating...", \
+                                   100, \
+                                   self.view, \
+                                   wx.PD_ELAPSED_TIME)
+        thread = startWorker(self.__after_update, self.__update)
+        while(thread.is_alive()):
+            dialog.Pulse()
+            wx.Yield()
+            wx.Sleep(0.1)
+
+        dialog.Destroy()
+
+    def __update(self):
+        """Get build conf from pykgin."""
+        self.model.update()
+
+    def __after_update(self, result):
+        """Update build conf."""
+        self.view.list_pkg.refresh(self.model.get_all_marked_pkgs(), self.model.remove_pkgs)
+
