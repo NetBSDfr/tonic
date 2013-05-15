@@ -58,7 +58,6 @@ class TonicPkgListCtrlEvents(object):
                 self.model.unremove_pkg(pkg)
             elif not pkg in self.model.get_all_marked_pkgs():
                 deps = list(set(self.model.get_deps_name(pkg)) - set(self.model.marked_pkgs.keys()))
-                print deps
                 if deps and not pkg in self.model.marked_pkgs.keys():
                     dlg = wx.SingleChoiceDialog(self.view, _("deps_dialog_title"), \
                                                     _("deps_add_dialog_caption"), \

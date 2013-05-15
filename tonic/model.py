@@ -138,3 +138,19 @@ class TonicModel(object):
         """Retrieve build infos of the package."""
         infos = self.pykgin.pkg_build_defs(pkg)
         return infos
+
+    def install(self, pkg):
+        """Install a package."""
+        self.pykgin.install(pkg)
+        self.installed_pkgs.append(pkg)
+        for dep in self.marked_pkgs[pkg]:
+            self.installed_pkgs.append(dep)
+
+    def remove(self, pkg):
+        """Install a package."""
+        self.pykgin.remove(pkg)
+        self.installed_pkgs.remove(pkg)
+        self.remove_pkgs.remove(pkg)
+        for dep in self.marked_pkgs[pkg]:
+            self.marked_pkgs[dep] = []
+        self.marked_pkgs.pop(pkg)

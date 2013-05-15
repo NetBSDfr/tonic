@@ -45,6 +45,8 @@ class TonicController(object):
         toolbar_evt = handlers.TonicToolBarEvents(self.view, self.model)
         self.view.Bind(wx.EVT_MENU, toolbar_evt.on_unmark_all, \
                        self.view.GetToolBar().unmark_tool)
+        self.view.Bind(wx.EVT_MENU, toolbar_evt.on_apply, \
+                       self.view.GetToolBar().apply_tool)
         # Menubar
         menubar_evt = handlers.TonicMenuBarEvents(self.view, self.model)
         self.view.Bind(wx.EVT_MENU, menubar_evt.on_about, \
