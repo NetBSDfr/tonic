@@ -54,10 +54,15 @@ class TonicMenuBarEvents(object):
                             |wx.FD_CHANGE_DIR)
         if dlg.ShowModal() == wx.ID_OK:
             paths = dlg.GetPaths()
-            print "You chose the following file(s):"
             for path in paths:
-                print path
-                dlg.Destroy()
+                with open(path, "r") as fil:
+                    for line in fil:
+                        pkg = line.strip().split("/")[1]
+                        self.model.mark_pkg(pkg)
+                fil.close()
+            wx.MessageBox(_("import_complete"), "Info", wx.OK | wx.ICON_INFORMATION)
+            self.view.list_pkg.refresh(self.model.get_all_marked_pkgs(), self.model.remove_pkgs)
+        dlg.Destroy()
 
     def on_export_file(self, event):
         """Save file dialog."""
@@ -74,7 +79,8 @@ class TonicMenuBarEvents(object):
                     path += ext + EXTS[dlg.GetFilterIndex()]
             print path
             self.model.export(path)
-            dlg.Destroy()
+            wx.MessageBox(_("export_complete"), "Info", wx.OK | wx.ICON_INFORMATION)
+        dlg.Destroy()
 
     def on_about(self, event):
         """Blabla some stuff about tonic."""
