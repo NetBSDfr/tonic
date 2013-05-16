@@ -159,3 +159,10 @@ class TonicModel(object):
         """Update packages list."""
         self.pykgin.update()
 
+    def get_upgrade_pkgs(self):
+        """Return packages to be upgraded."""
+        return self.pykgin.upgrade(perform=False)
+
+    def export(self, path):
+        """Export packages list into file."""
+        self.pykgin.export_pkg(path)

@@ -28,12 +28,12 @@
 """Events handler for TonicMenuBar."""
 
 import wx
+import wx.lib.dialogs
 import os
 from wx.lib.delayedresult import startWorker
 
-WILDCARD = "Tonic files (*.tonic)|*.tonic |"\
-           "Conf files (*.conf)|*.conf |"\
-           "All files (*.*)|*.*"
+WILDCARD = ["Tonic files (*.tonic)|*.tonic", "Conf files (*.conf)|*.conf", "All files (*.*)|*.*o"]
+EXTS = [".tonic", ".conf"]
 
 class TonicMenuBarEvents(object):
     """Provide callbacks for TonicMenuBar."""
@@ -48,7 +48,7 @@ class TonicMenuBarEvents(object):
                             message = "Choose a file", \
                             defaultDir = self.current_directory, \
                             defaultFile = "", \
-                            wildcard = WILDCARD, \
+                            wildcard = "|".join(WILDCARD), \
                             style = wx.FD_OPEN\
                             |wx.FD_MULTIPLE\
                             |wx.FD_CHANGE_DIR)
@@ -57,20 +57,24 @@ class TonicMenuBarEvents(object):
             print "You chose the following file(s):"
             for path in paths:
                 print path
-        dlg.Destroy()
+                dlg.Destroy()
 
     def on_export_file(self, event):
         """Save file dialog."""
         dlg = wx.FileDialog(self.view, \
-                           message = "Save file as ...", \
-                           defaultDir = self.current_directory, \
-                           defaultFile = "", \
-                           wildcard = WILDCARD, \
-                           style = wx.FD_SAVE)
+                            message = "Save file as ...", \
+                            defaultDir = self.current_directory, \
+                            defaultFile = "", \
+                            wildcard = "|".join(WILDCARD), \
+                            style = wx.FD_SAVE)
         if dlg.ShowModal() == wx.ID_OK:
-           path = dlg.GetPath()
-           print "You chose the following filename: %s" % path
-        dlg.Destroy()
+            path, ext = os.path.splitext(dlg.GetPath())
+            if not ext in EXTS:
+                if dlg.GetFilterIndex() != 2:
+                    path += ext + EXTS[dlg.GetFilterIndex()]
+            print path
+            self.model.export(path)
+            dlg.Destroy()
 
     def on_about(self, event):
         """Blabla some stuff about tonic."""
@@ -80,19 +84,19 @@ class TonicMenuBarEvents(object):
         description = """Pkgin aims to provide a GUI for pkgin."""
 
         license = """
-Copyright (c) 2013 Guillaume Delpierre <gde@llew.me>
-Copyright (c) 2013 Sylvain Mora <sylvain.mora@solevis.net>
-All rights reserved.
+        Copyright (c) 2013 Guillaume Delpierre <gde@llew.me>
+        Copyright (c) 2013 Sylvain Mora <sylvain.mora@solevis.net>
+        All rights reserved.
 
 Redistribution and use in source and binary forms, with or without
 modification, are permitted provided that the following conditions
 are met:
-1. Redistributions of source code must retain the above copyright
-notice, this list of conditions and the following disclaimer
-in this position and unchanged.
-2. Redistributions in binary form must reproduce the above copyright
-notice, this list of conditions and the following disclaimer in the
-documentation and/or other materials provided with the distribution.
+    1. Redistributions of source code must retain the above copyright
+    notice, this list of conditions and the following disclaimer
+    in this position and unchanged.
+    2. Redistributions in binary form must reproduce the above copyright
+    notice, this list of conditions and the following disclaimer in the
+    documentation and/or other materials provided with the distribution.
 
 THIS SOFTWARE IS PROVIDED BY THE AUTHOR(S) ``AS IS'' AND ANY EXPRESS
 OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE IMPLIED
@@ -152,4 +156,19 @@ OF THE POSSIBILITY OF SUCH DAMAGE. """
     def __after_update(self, result):
         """Update build conf."""
         self.view.list_pkg.refresh(self.model.get_all_marked_pkgs(), self.model.remove_pkgs)
+
+    def on_upgrade(self, event):
+        """Upgrade packages."""
+        """pkgs_full = self.model.get_upgrade_pkgs()["packages_installed"]
+        pkgs = [pkg["name"] for pkg in pkgs_full]
+        dlg = wx.lib.dialogs.MultipleChoiceDialog(self.view, _("upgrade_dialog_title"), \
+                _("upgrade_dialog_caption"), \
+                pkgs
+        )
+        if dlg.ShowModal() == wx.ID_OK:
+            print dlg.GetValue()
+            print dlg.GetValueString()
+            #for pkg in pkgs:
+                #    self.model.mark_pkg(pkg)
+                #self.view.list_pkg.refresh(self.model.get_all_marked_pkgs(), self.model.remove_pkgs)"""
 
