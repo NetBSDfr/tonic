@@ -7,7 +7,7 @@ License
 =======
 
 ```
-Copyright (c) 2013 Guilaume Delpierre <gde@llew.me>
+Copyright (c) 2013 Guillaume Delpierre <gde@llew.me>
 Copyright (c) 2013 Sylvain Mora <sylvain.mora@solevis.net>
 All rights reserved.
 
@@ -53,7 +53,7 @@ TODO
  - Import / Export (bind with pykgin import/export)
  - Update (bind with pykgin.update())
  - Upgrade (show upgrades, bind with pykgin.upgrade and progress dialog)
- - Repository Settings (TextCtrl for edit /usr/pkg/etc/pkgin/repositories.cong)
+ - Repository Settings (TextCtrl for edit /usr/pkg/etc/pkgin/repositories.conf)
  - Preferences 
  - Changes List
  - Translation (fix missing gettext sentences, add more languages)
