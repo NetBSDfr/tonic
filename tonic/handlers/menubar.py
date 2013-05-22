@@ -32,7 +32,9 @@ import wx.lib.dialogs
 import os
 from wx.lib.delayedresult import startWorker
 
-WILDCARD = ["Tonic files (*.tonic)|*.tonic", "Conf files (*.conf)|*.conf", "All files (*.*)|*.*o"]
+WILDCARD = ["Tonic files (*.tonic)|*.tonic", \
+            "Conf files (*.conf)|*.conf", \
+            "All files (*.*)|*.*o"]
 EXTS = [".tonic", ".conf"]
 
 class TonicMenuBarEvents(object):
@@ -60,8 +62,10 @@ class TonicMenuBarEvents(object):
                         pkg = line.strip().split("/")[1]
                         self.model.mark_pkg(pkg)
                 fil.close()
-            wx.MessageBox(_("import_complete"), "Info", wx.OK | wx.ICON_INFORMATION)
-            self.view.list_pkg.refresh(self.model.get_all_marked_pkgs(), self.model.remove_pkgs)
+            wx.MessageBox(_("import_complete"), "Info", \
+                          wx.OK | wx.ICON_INFORMATION)
+            self.view.list_pkg.refresh(self.model.get_all_marked_pkgs(), \
+                                       self.model.remove_pkgs)
         dlg.Destroy()
 
     def on_export_file(self, event):
@@ -79,7 +83,8 @@ class TonicMenuBarEvents(object):
                     path += ext + EXTS[dlg.GetFilterIndex()]
             print path
             self.model.export(path)
-            wx.MessageBox(_("export_complete"), "Info", wx.OK | wx.ICON_INFORMATION)
+            wx.MessageBox(_("export_complete"), "Info", \
+                          wx.OK | wx.ICON_INFORMATION)
         dlg.Destroy()
 
     def on_about(self, event):
