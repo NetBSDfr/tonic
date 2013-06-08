@@ -166,7 +166,8 @@ OF THE POSSIBILITY OF SUCH DAMAGE. """
 
     def __after_update(self, result):
         """Update build conf."""
-        self.view.list_pkg.refresh(self.model.get_all_marked_pkgs(), self.model.remove_pkgs)
+        self.view.list_pkg.refresh(self.model.get_all_marked_pkgs(), \
+                                   self.model.remove_pkgs)
 
     def on_upgrade(self, event):
         """Upgrade packages."""

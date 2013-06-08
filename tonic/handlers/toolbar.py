@@ -38,7 +38,8 @@ class TonicToolBarEvents(object):
     def on_unmark_all(self, event):
         """Unmark all packages."""
         self.model.unmark_all()
-        self.view.list_pkg.refresh(self.model.get_all_marked_pkgs(), self.model.remove_pkgs)
+        self.view.list_pkg.refresh(self.model.get_all_marked_pkgs(), \
+                                   self.model.remove_pkgs)
 
     def on_apply(self, event):
         """Apply changes."""
@@ -57,7 +58,8 @@ class TonicToolBarEvents(object):
                     pkg = self.model.marked_pkgs.keys()[index]
                     index += 1
                     if not pkg in self.model.installed_pkgs:
-                        msg = "Installing %s (%d/%d)" % (pkg, count, progress_max)
+                        msg = "Installing %s (%d/%d)" % \
+                                (pkg, count, progress_max)
                         keep_going = dialog.Update(count, pkg)
                         self.model.install(pkg)
                         count += 1
@@ -65,7 +67,8 @@ class TonicToolBarEvents(object):
                     if count == progress_max:
                         keep_going = dialog.Update(count, "Done.")
 
-            self.view.list_pkg.refresh(self.model.get_all_marked_pkgs(), self.model.remove_pkgs)
+            self.view.list_pkg.refresh(self.model.get_all_marked_pkgs(), \
+                                       self.model.remove_pkgs)
             dialog.Destroy()
 
         ### Remove
@@ -88,5 +91,6 @@ class TonicToolBarEvents(object):
                 if count == progress_max:
                     keep_going = dialog.Update(count, "Done.")
 
-        self.view.list_pkg.refresh(self.model.get_all_marked_pkgs(), self.model.remove_pkgs)
+        self.view.list_pkg.refresh(self.model.get_all_marked_pkgs(), \
+                                   self.model.remove_pkgs)
         dialog.Destroy()
